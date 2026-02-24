@@ -21,6 +21,9 @@ from fastapi.responses import StreamingResponse
 # from PyPDF2 import PdfReader, PdfWriter
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
+from fastapi import Depends, Form
+from starlette.middleware.sessions import SessionMiddleware
+from datetime import datetime, timedelta
 
 
 
@@ -41,6 +44,45 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 app.mount("/certificates", StaticFiles(directory="certificates"), name="certificates")
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.getenv("SESSION_SECRET", "change_this_in_production"),
+)
+
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+SESSION_TIMEOUT_MINUTES = 1
+
+
+
+
+def create_session(request: Request):
+    request.session["user"] = "admin"
+    request.session["last_activity"] = datetime.utcnow().isoformat()
+
+
+def is_authenticated(request: Request):
+    user = request.session.get("user")
+    last_activity = request.session.get("last_activity")
+
+    if not user or not last_activity:
+        return False
+
+    last_time = datetime.fromisoformat(last_activity)
+    if datetime.utcnow() - last_time > timedelta(minutes=SESSION_TIMEOUT_MINUTES):
+        request.session.clear()
+        return False
+
+    request.session["last_activity"] = datetime.utcnow().isoformat()
+    return True
+
+
+def require_login(request: Request):
+    if not is_authenticated(request):
+        return RedirectResponse("/login", status_code=303)
+
+
+
 
 
 CERT_DIR = "certificates"
@@ -159,8 +201,54 @@ init_db()
 
 
 # ------------------ ROUTES ------------------
+@app.get("/login")
+def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+
+@app.post("/login")
+def login(
+    request: Request,
+    username: str = Form(...),
+    password: str = Form(...)
+):
+    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        create_session(request)
+        return RedirectResponse("/", status_code=303)
+
+    return templates.TemplateResponse(
+        "login.html",
+        {"request": request, "error": "Invalid credentials"}
+    )
+
+
+
+@app.get("/logout")
+def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/login", status_code=303)
+
+# @app.get("/")
+# def upload_page(request: Request):
+#     with get_db() as conn:
+#         with conn.cursor() as cur:
+#             cur.execute(
+#                 "SELECT * FROM onboarding_certificates ORDER BY created_at DESC"
+#             )
+#             records = cur.fetchall()
+
+#     return templates.TemplateResponse(
+#         "upload.html",
+#         {"request": request, "records": records},
+#     )
+
 @app.get("/")
 def upload_page(request: Request):
+    auth = require_login(request)
+    if auth:
+        return auth
+
     with get_db() as conn:
         with conn.cursor() as cur:
             cur.execute(
