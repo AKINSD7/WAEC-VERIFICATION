@@ -19,3 +19,9 @@ env/
 
 # Database or secrets (if any)
 *.sqlite3
+
+
+certificates/
+.env
+venv/
+__pycache__/
