@@ -1,159 +1,715 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Upload CSV</title>
+    <title>DIPER – Certificate Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <style>
-      body {
-        font-family: "Poppins", Arial, sans-serif;
-        background: #f4f6f9;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      /* ── reset & base ─────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
         margin: 0;
+        padding: 0;
       }
-
-      .upload-card {
-        background: #ffffff;
-        padding: 30px 40px;
-        border-radius: 10px;
-        width: 100%;
-        max-width: 420px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-
-      h2 {
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f0f2f5;
         color: #2c3e50;
+        min-height: 100vh;
       }
 
-      p {
-        font-size: 14px;
+      /* ── header ──────────────────────────────────────────────── */
+      header {
+        background: #04aa6c;
+        color: #fff;
+        padding: 14px 32px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+      }
+      header h1 {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      header span {
+        font-size: 13px;
+        opacity: 0.85;
+      }
+
+      /* ── page wrapper ─────────────────────────────────────────── */
+      .page {
+        max-width: 1200px;
+        margin: 32px auto;
+        padding: 0 20px 60px;
+      }
+
+      /* ── section heading ──────────────────────────────────────── */
+      .section-title {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #04aa6c;
+        margin-bottom: 14px;
+        border-left: 4px solid #04aa6c;
+        padding-left: 10px;
+      }
+
+      /* ── two-column grid ─────────────────────────────────────── */
+      .top-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      @media (max-width: 768px) {
+        .top-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── card ─────────────────────────────────────────────────── */
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 28px 28px 24px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        margin-bottom: 24px;
+      }
+      .card h2 {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+      .card p.sub {
+        font-size: 13px;
+        color: #777;
+        margin-bottom: 20px;
+      }
+
+      /* ── form controls ────────────────────────────────────────── */
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
         color: #555;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
       }
-
+      input[type="text"],
+      input[type="number"],
       input[type="file"] {
         width: 100%;
-        padding: 10px;
-        border: 2px dashed #ccc;
+        padding: 9px 12px;
+        border: 1.5px solid #dde2e9;
         border-radius: 6px;
-        margin-bottom: 15px;
+        font-size: 14px;
+        color: #2c3e50;
+        background: #fafbfc;
+        margin-bottom: 14px;
+        transition: border-color 0.2s;
+      }
+      input[type="text"]:focus,
+      input[type="number"]:focus {
+        border-color: #04aa6c;
+        outline: none;
+        background: #fff;
+      }
+      input[type="file"] {
+        padding: 8px;
+        border-style: dashed;
         cursor: pointer;
       }
 
-      button {
+      /* ── stats grid ───────────────────────────────────────────── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      @media (max-width: 500px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* ── buttons ──────────────────────────────────────────────── */
+      .btn {
+        display: inline-block;
         width: 100%;
-        padding: 12px;
+        padding: 11px 18px;
         border: none;
-        border-radius: 6px;
-        background-color: #007bff;
-        color: white;
-        font-size: 15px;
+        border-radius: 7px;
+        font-size: 14px;
+        font-weight: 600;
         cursor: pointer;
-        margin-top: 10px;
+        transition:
+          opacity 0.15s,
+          transform 0.1s;
+        text-align: center;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn:hover {
+        opacity: 0.88;
+      }
+      .btn-green {
+        background: #04aa6c;
+        color: #fff;
+        margin-top: 6px;
+      }
+      .btn-blue {
+        background: #007bff;
+        color: #fff;
+      }
+      .btn-dark {
+        background: #343a40;
+        color: #fff;
       }
 
-      .success {
-        color: #28a745;
-        font-weight: bold;
-        margin-top: 15px;
+      /* small action buttons in table */
+      .btn-sm {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+        white-space: nowrap;
+      }
+      .btn-sm:hover {
+        opacity: 0.82;
+      }
+      .btn-merge {
+        background: #17a2b8;
+        color: #fff;
+      }
+      .btn-print {
+        background: #04aa6c;
+        color: #fff;
+      }
+
+      /* ── feedback messages ────────────────────────────────────── */
+      .alert {
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-top: 14px;
         display: none;
       }
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+      }
+      .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+      }
 
+      /* post-upload action buttons */
       .action-buttons {
         display: none;
-        margin-top: 20px;
+        margin-top: 14px;
+        gap: 8px;
+        flex-direction: column;
+      }
+      .action-buttons.visible {
+        display: flex;
       }
 
-      .btn-green {
-        background-color: #28a745;
+      /* ── divider ──────────────────────────────────────────────── */
+      .divider {
+        border: none;
+        border-top: 1px solid #e5e9f0;
+        margin: 10px 0 18px;
       }
 
-      .btn-dark {
-        background-color: #343a40;
+      /* ── records table ────────────────────────────────────────── */
+      .table-wrap {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        margin-top: 24px;
       }
-
-      .footer-text {
-        margin-top: 20px;
+      .table-header {
+        padding: 18px 24px 14px;
+        border-bottom: 1px solid #eef0f3;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .table-header h2 {
+        font-size: 15px;
+      }
+      .record-count {
         font-size: 12px;
-        color: #888;
+        background: #e8f8f2;
+        color: #04aa6c;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      thead tr {
+        background: #04aa6c;
+        color: #fff;
+      }
+      th {
+        padding: 11px 14px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.4px;
+      }
+      td {
+        padding: 11px 14px;
+        border-bottom: 1px solid #f0f2f5;
+        vertical-align: middle;
+        text-align: center;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: #f8fffe;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .badge-ready {
+        background: #d4edda;
+        color: #155724;
+      }
+      .badge-pending {
+        background: #fff3cd;
+        color: #856404;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        vertical-align: middle;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .empty-state {
+        padding: 48px;
+        text-align: center;
+        color: #aaa;
+        font-size: 14px;
+      }
+
+      /* ── PDF Upload Table Styles ───────────────────────────────── */
+      #recordsTable {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 12px;
+      }
+      #recordsTable th,
+      #recordsTable td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      #recordsTable th {
+        background: #04aa6c;
+        color: #fff;
+      }
+      #recordsTable button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        background: #04aa6c;
+        color: #fff;
+        cursor: pointer;
+      }
+      #recordsTable button:hover {
+        opacity: 0.85;
       }
     </style>
   </head>
 
   <body>
-    <div class="upload-card">
-      <h2>Upload CSV File</h2>
-      <p>Please upload the approved clearance CSV file</p>
+    <!-- ── header ───────────────────────────────────────────────────────── -->
+    <header>
+      <div>
+        <h1>DIPER Certificate Portal</h1>
+        <span>Ministry of Education · Department of Private Schools</span>
+      </div>
+    </header>
 
-      <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv" required />
-        <button type="submit">Upload CSV</button>
-      </form>
+    <div class="page">
+      <div class="top-grid">
+        <!-- LEFT: CSV Upload -->
+        <div class="card">
+          <div class="section-title">CSV Upload</div>
+          <h2>Upload Clearance File</h2>
+          <p class="sub">
+            Upload the approved clearance CSV to import school data.
+          </p>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <label for="csvFile">Select CSV file</label>
+            <input
+              type="file"
+              id="csvFile"
+              name="file"
+              accept=".csv"
+              required
+            />
+            <button type="submit" class="btn btn-blue" id="uploadBtn">
+              Upload CSV
+            </button>
+          </form>
+          <div id="uploadSuccess" class="alert alert-success">
+            ✔ Upload successful!
+          </div>
+          <div id="uploadError" class="alert alert-error">
+            ✖ Upload failed. Please try again.
+          </div>
+          <div id="actionButtons" class="action-buttons">
+            <a id="openIndex" class="btn btn-dark" target="_blank"
+              >Open Clearance List</a
+            >
+            <a id="openVerify" class="btn btn-green" target="_blank"
+              >Open Verification Slip</a
+            >
+          </div>
+        </div>
 
-      <!-- ✅ SUCCESS MESSAGE -->
-      <div id="successMsg" class="success">
-        ✔ Upload successful
+        <!-- RIGHT: Generate Certificate -->
+        <div class="card">
+          <div class="section-title">New Certificate</div>
+          <h2>School Information</h2>
+          <p class="sub">
+            Fill in the details and submit to save to the database.
+          </p>
+          <form action="/generate-certificate" method="post" id="certForm">
+            <label for="school_name">School Name</label>
+            <input
+              type="text"
+              id="school_name"
+              name="school_name"
+              placeholder="e.g. DAVIDMARY MODEL COLLEGE, IFO"
+              required
+            />
+            <label for="lga">LGA</label>
+            <input
+              type="text"
+              id="lga"
+              name="lga"
+              placeholder="e.g. Ifo"
+              required
+            />
+            <label for="school_code">School Code</label>
+            <input
+              type="text"
+              id="school_code"
+              name="school_code"
+              placeholder="e.g. G24207"
+              required
+            />
+            <hr class="divider" />
+            <label>Student Statistics</label>
+            <div class="stats-grid">
+              <div>
+                <label for="js1">JS1</label
+                ><input type="number" id="js1" name="js1" value="0" min="0" />
+              </div>
+              <div>
+                <label for="js2">JS2</label
+                ><input type="number" id="js2" name="js2" value="0" min="0" />
+              </div>
+              <div>
+                <label for="js3">JS3</label
+                ><input type="number" id="js3" name="js3" value="0" min="0" />
+              </div>
+              <div>
+                <label for="ss1">SS1</label
+                ><input type="number" id="ss1" name="ss1" value="0" min="0" />
+              </div>
+              <div>
+                <label for="ss2">SS2</label
+                ><input type="number" id="ss2" name="ss2" value="0" min="0" />
+              </div>
+              <div>
+                <label for="ss3">SS3</label
+                ><input type="number" id="ss3" name="ss3" value="0" min="0" />
+              </div>
+              <div>
+                <label for="total">Total</label
+                ><input
+                  type="number"
+                  id="total"
+                  name="total"
+                  value="0"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="teachers">Teachers</label
+                ><input
+                  type="number"
+                  id="teachers"
+                  name="teachers"
+                  value="0"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="our_ref">Our Reference</label
+                ><input
+                  type="text"
+                  id="our_ref"
+                  name="our_ref"
+                  placeholder="e.g. 2024/001"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-green"
+              style="margin-top: 18px"
+            >
+              💾 Save to Database
+            </button>
+          </form>
+        </div>
       </div>
 
-      <!-- ✅ ACTION BUTTONS -->
-      <div id="actionButtons" class="action-buttons">
-        <button
-          id="openIndex"
-          type="button"
-          class="btn-dark"
-        >
-          Open Clearance List
-        </button>
+      <!-- ── PDF Upload & QR Embed Card ─────────────────────────────── -->
+      <div class="card">
+        <div class="section-title">Upload PDF & Embed QR</div>
+        <h2>Upload Your PDF</h2>
+        <p class="sub">
+          Select a PDF document. A QR code will be embedded on the first page
+          linking back to the PDF.
+        </p>
+        <form id="pdfForm" enctype="multipart/form-data">
+          <input type="file" name="file" accept="application/pdf" required />
+          <button type="submit">Upload PDF</button>
+        </form>
+        <div id="success" class="alert alert-success">
+          Uploaded successfully!
+        </div>
+        <div id="error" class="alert alert-error">Upload failed.</div>
 
-        <button
-          id="openVerify"
-          type="button"
-          class="btn-green"
-        >
-          Open Verification Slip
-        </button>
+        <h2>Uploaded PDFs</h2>
+        <table id="recordsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Original Filename</th>
+              <th>Download QR PDF</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
 
-      <div class="footer-text">
-        Ministry of Education • Clearance Portal
+      <!-- ── Certificate Records Table ──────────────────────────────── -->
+      <div class="table-wrap">
+        <div class="table-header">
+          <h2>Certificate Records</h2>
+          <span class="record-count"
+            >{{ records | length }} record{{ 's' if records | length != 1 else
+            '' }}</span
+          >
+        </div>
+        {% if records %}
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>School</th>
+              <th>LGA</th>
+              <th>Code</th>
+              <th>Total</th>
+              <th>Teachers</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in records %}
+            <tr id="row-{{ row.record_id }}">
+              <td style="color: #aaa; font-size: 11px">{{ loop.index }}</td>
+              <td><strong>{{ row.school_name }}</strong></td>
+              <td>{{ row.lga }}</td>
+              <td><code>{{ row.school_code }}</code></td>
+              <td>{{ row.total }}</td>
+              <td>{{ row.teachers }}</td>
+              <td id="status-{{ row.record_id }}">
+                {% if row.pdf_path %}<span class="badge badge-ready"
+                  >✔ Merged</span
+                >{% else %}<span class="badge badge-pending">Pending</span>{%
+                endif %}
+              </td>
+              <td>
+                <button
+                  class="btn-sm btn-merge"
+                  onclick="mergeCertificate('{{ row.record_id }}')"
+                  id="merge-btn-{{ row.record_id }}"
+                >
+                  📄 Merge
+                </button>
+                &nbsp;
+                <a
+                  href="/print/{{ row.record_id }}"
+                  target="_blank"
+                  class="btn-sm btn-print"
+                  >🖨 Print</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+          No records yet. Fill in the form above to add the first certificate.
+        </div>
+        {% endif %}
       </div>
     </div>
 
+    <!-- ── Scripts ─────────────────────────────────────────────── -->
     <script>
-      const form = document.getElementById("uploadForm");
-      const successMsg = document.getElementById("successMsg");
+      // Merge certificate
+      async function mergeCertificate(recordId) {
+        const btn = document.getElementById(`merge-btn-${recordId}`);
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Processing…';
+        try {
+          const res = await fetch(`/merge/${recordId}`, { method: "POST" });
+          const data = await res.json();
+          if (res.ok) {
+            alert("✅ Merge successful");
+            document.getElementById(`status-${recordId}`).innerHTML =
+              '<span class="badge badge-ready">✔ Merged</span>';
+          } else {
+            alert("❌ " + (data.detail || "Failed"));
+          }
+        } catch (err) {
+          alert("❌ Network error");
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = "📄 Merge";
+        }
+      }
+
+      // PDF Upload & QR
+      const pdfForm = document.getElementById("pdfForm");
+      const successMsg = document.getElementById("success");
+      const errorMsg = document.getElementById("error");
+      const tableBody = document.querySelector("#recordsTable tbody");
+
+      async function loadRecords() {
+        try {
+          const res = await fetch("/records");
+          const data = await res.json();
+          tableBody.innerHTML = "";
+          data.records.forEach((rec, i) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${i + 1}</td><td>${rec.file_name}</td><td><a href="${rec.pdf_with_qr}" target="_blank"><button>Download</button></a></td>`;
+            tableBody.appendChild(row);
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      pdfForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        successMsg.style.display = "none";
+        errorMsg.style.display = "none";
+        const formData = new FormData(pdfForm);
+        try {
+          const res = await fetch("/upload-pdf", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+          if (res.ok) {
+            successMsg.style.display = "block";
+            await loadRecords();
+          } else {
+            errorMsg.style.display = "block";
+          }
+        } catch (err) {
+          errorMsg.style.display = "block";
+        }
+      });
+
+      // load uploaded PDFs on page load
+      loadRecords();
+    </script>
+
+    <script>
+      const csvForm = document.getElementById("uploadForm");
+      const csvSuccessMsg = document.getElementById("uploadSuccess");
+      const csvErrorMsg = document.getElementById("uploadError");
       const actionButtons = document.getElementById("actionButtons");
       const openIndexBtn = document.getElementById("openIndex");
       const openVerifyBtn = document.getElementById("openVerify");
 
-      form.addEventListener("submit", async (e) => {
+      csvForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(form);
+        csvSuccessMsg.style.display = "none";
+        csvErrorMsg.style.display = "none";
 
-        const response = await fetch("/upload", {
-          method: "POST",
-          body: formData
-        });
+        const formData = new FormData(csvForm);
 
-        const data = await response.json();
+        try {
+          const res = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
 
-        // ✅ Show success message
-        successMsg.style.display = "block";
+          const data = await res.json();
 
-        // ✅ Show buttons
-        actionButtons.style.display = "block";
+          if (res.ok) {
+            csvSuccessMsg.style.display = "block";
 
-        // ✅ Attach URLs
-        openIndexBtn.onclick = () =>
-          window.open(data.index_url, "_blank");
+            openIndexBtn.href = data.index_url;
+            openVerifyBtn.href = data.verify_url;
 
-        openVerifyBtn.onclick = () =>
-          window.open(data.verify_url, "_blank");
+            actionButtons.classList.add("visible");
+          } else {
+            csvErrorMsg.style.display = "block";
+          }
+        } catch (err) {
+          csvErrorMsg.style.display = "block";
+        }
       });
     </script>
   </body>
