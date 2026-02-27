@@ -24,7 +24,7 @@ from reportlab.lib.utils import ImageReader
 from fastapi import Depends, Form
 from starlette.middleware.sessions import SessionMiddleware
 from datetime import datetime, timedelta
-
+from urllib.parse import urlencode
 
 
 # ------------------ LOAD ENV ------------------
@@ -37,7 +37,6 @@ if not DATABASE_URL:
     raise Exception("DATABASE_URL is missing in .env")
 
 print("DATABASE_URL loaded successfully!")
-
 
 # ------------------ APP SETUP ------------------
 app = FastAPI()
@@ -52,6 +51,8 @@ app.add_middleware(
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 SESSION_TIMEOUT_MINUTES = 1
+print("ADMIN_USERNAME =", ADMIN_USERNAME)
+print("ADMIN_PASSWORD =", ADMIN_PASSWORD)
 
 
 
@@ -126,7 +127,7 @@ def get_verification_context(request: Request, record_id: str):
 
     if not row:
         raise HTTPException(status_code=404, detail="Record not found")
-
+    
     rows = row["rows"]
     recommended_count = count_recommended(rows)
 
@@ -208,11 +209,12 @@ def login_page(request: Request):
 
 
 @app.post("/login")
-def login(
-    request: Request,
-    username: str = Form(...),
-    password: str = Form(...)
-):
+async def login(request: Request):
+    form = await request.form()
+
+    username = form.get("username")
+    password = form.get("password")
+
     if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
         create_session(request)
         return RedirectResponse("/", status_code=303)
@@ -412,6 +414,51 @@ def wassce_list_page(
         }
     )
     return templates.TemplateResponse("index.html", context)
+
+# @app.get("/print/certificate/{record_id}")
+# def print_certificate(request: Request, record_id: str):
+#     context = get_verification_context(request, record_id)
+#     return templates.TemplateResponse("certificate_print.html", context)
+
+# @app.get("/print/list/{record_id}")
+# def print_registration_list(request: Request, record_id: str):
+#     context = get_verification_context(request, record_id)
+#     return templates.TemplateResponse("registration_list_print.html", context)
+
+
+
+@app.get("/generate-clearance-link/{record_id}")
+def generate_clearance_link(record_id: str):
+    # Get all student rows
+    with get_db() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT rows FROM uploads WHERE record_id = %s", (record_id,))
+            row = cur.fetchone()
+
+    if not row:
+        raise HTTPException(status_code=404, detail="Record not found")
+
+    # Extract student IDs (replace 'lin' with your unique student ID field)
+    student_ids = [str(r["lin"]) for r in row["rows"]]
+
+    # Build query string
+    query_value = ",".join(student_ids)
+    query_params = urlencode({"selected_students_for_print": query_value})
+
+    # Build dynamic URL using your BASE_URL
+    url = f"{BASE_URL}/education-services/exam-clearance/manage-clearance/clearance-lists?{query_params}"
+
+    return {"clearance_link": url}
+
+
+
+
+
+
+
+
+
+
 
 
 # ------------------ONBOARDING  CERTIFICATE ROUTES ------------------

@@ -673,44 +673,53 @@
       loadRecords();
     </script>
 
-    <script>
-      const csvForm = document.getElementById("uploadForm");
-      const csvSuccessMsg = document.getElementById("uploadSuccess");
-      const csvErrorMsg = document.getElementById("uploadError");
-      const actionButtons = document.getElementById("actionButtons");
-      const openIndexBtn = document.getElementById("openIndex");
-      const openVerifyBtn = document.getElementById("openVerify");
+<script>
+  const csvForm = document.getElementById("uploadForm");
+  const csvSuccessMsg = document.getElementById("uploadSuccess");
+  const csvErrorMsg = document.getElementById("uploadError");
+  const actionButtons = document.getElementById("actionButtons");
+  const openIndexBtn = document.getElementById("openIndex");
+  const openVerifyBtn = document.getElementById("openVerify");
 
-      csvForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  // New: the old button you want to update
+  const printCertBtn = document.getElementById("printCertBtn");
 
-        csvSuccessMsg.style.display = "none";
-        csvErrorMsg.style.display = "none";
+  csvForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        const formData = new FormData(csvForm);
+    csvSuccessMsg.style.display = "none";
+    csvErrorMsg.style.display = "none";
 
-        try {
-          const res = await fetch("/upload", {
-            method: "POST",
-            body: formData,
-          });
+    const formData = new FormData(csvForm);
 
-          const data = await res.json();
-
-          if (res.ok) {
-            csvSuccessMsg.style.display = "block";
-
-            openIndexBtn.href = data.index_url;
-            openVerifyBtn.href = data.verify_url;
-
-            actionButtons.classList.add("visible");
-          } else {
-            csvErrorMsg.style.display = "block";
-          }
-        } catch (err) {
-          csvErrorMsg.style.display = "block";
-        }
+    try {
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: formData,
       });
-    </script>
+
+      const data = await res.json();
+
+      if (res.ok) {
+        csvSuccessMsg.style.display = "block";
+
+        // Update buttons dynamically
+        openIndexBtn.href = data.index_url;
+        openVerifyBtn.href = data.verify_url;
+
+        // Update old Print Certificate button
+        if (printCertBtn) {
+          printCertBtn.href = data.verify_url;
+        }
+
+        actionButtons.classList.add("visible");
+      } else {
+        csvErrorMsg.style.display = "block";
+      }
+    } catch (err) {
+      csvErrorMsg.style.display = "block";
+    }
+  });
+</script>
   </body>
 </html>

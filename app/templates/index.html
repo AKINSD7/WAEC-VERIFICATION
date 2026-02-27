@@ -1,110 +1,2271 @@
-<!DOCTYPE html>
-
-<html class="fa-events-icons-ready" data-qb-installed="true">
+<!doctype html>
+<html class="fa-events-icons-ready">
   <head>
-    <!-- Styles -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <meta
+      name="csrf-token"
+      content="JC4UmTVRXSCX3CaMdf4upeSO7yQF0aWfE1ZfftqY"
+    />
+
+    <script src="https://use.fontawesome.com/9a9605d31f.js"></script>
+    <link
+      href="https://use.fontawesome.com/9a9605d31f.css"
+      media="all"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/style.css') }}"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
     />
+    <link href="{{ url_for('static', path='css/app.css') }}" rel="stylesheet" />
+    <script src="https://live.skoolpay.ng/inline-js/skoolpay.js"></script>
 
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      href="{{ url_for('static', path='assets/images/favicon.ico') }}"
-      type="image/ico"
-    />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', path='assets/images/favicon.ico') }}"
-      type="image/ico"
-    />
+    <script src="{{ url_for('static', path='css/app.js') }}" defer=""></script>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WAEC 2025/2026 Clearance List</title>
+    <style>
+      .cke {
+        visibility: hidden;
+      }
+    </style>
+
+    <style>
+      .swal2-popup.swal2-toast {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        padding: 0.625em;
+        overflow-y: hidden;
+        background: #fff;
+        box-shadow: 0 0 0.625em #d9d9d9;
+      }
+      .swal2-popup.swal2-toast .swal2-header {
+        flex-direction: row;
+        padding: 0;
+      }
+      .swal2-popup.swal2-toast .swal2-title {
+        flex-grow: 1;
+        justify-content: flex-start;
+        margin: 0 0.6em;
+        font-size: 1em;
+      }
+      .swal2-popup.swal2-toast .swal2-footer {
+        margin: 0.5em 0 0;
+        padding: 0.5em 0 0;
+        font-size: 0.8em;
+      }
+      .swal2-popup.swal2-toast .swal2-close {
+        position: static;
+        width: 0.8em;
+        height: 0.8em;
+        line-height: 0.8;
+      }
+      .swal2-popup.swal2-toast .swal2-content {
+        justify-content: flex-start;
+        padding: 0;
+        font-size: 1em;
+      }
+      .swal2-popup.swal2-toast .swal2-icon {
+        width: 2em;
+        min-width: 2em;
+        height: 2em;
+        margin: 0;
+      }
+      .swal2-popup.swal2-toast .swal2-icon .swal2-icon-content {
+        display: flex;
+        align-items: center;
+        font-size: 1.8em;
+        font-weight: 700;
+      }
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .swal2-popup.swal2-toast .swal2-icon .swal2-icon-content {
+          font-size: 0.25em;
+        }
+      }
+      .swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring {
+        width: 2em;
+        height: 2em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-icon.swal2-error
+        [class^="swal2-x-mark-line"] {
+        top: 0.875em;
+        width: 1.375em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-icon.swal2-error
+        [class^="swal2-x-mark-line"][class$="left"] {
+        left: 0.3125em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-icon.swal2-error
+        [class^="swal2-x-mark-line"][class$="right"] {
+        right: 0.3125em;
+      }
+      .swal2-popup.swal2-toast .swal2-actions {
+        flex-basis: auto !important;
+        width: auto;
+        height: auto;
+        margin: 0 0.3125em;
+      }
+      .swal2-popup.swal2-toast .swal2-styled {
+        margin: 0 0.3125em;
+        padding: 0.3125em 0.625em;
+        font-size: 1em;
+      }
+      .swal2-popup.swal2-toast .swal2-styled:focus {
+        box-shadow:
+          0 0 0 1px #fff,
+          0 0 0 3px rgba(50, 100, 150, 0.4);
+      }
+      .swal2-popup.swal2-toast .swal2-success {
+        border-color: #a5dc86;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success
+        [class^="swal2-success-circular-line"] {
+        position: absolute;
+        width: 1.6em;
+        height: 3em;
+        transform: rotate(45deg);
+        border-radius: 50%;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success
+        [class^="swal2-success-circular-line"][class$="left"] {
+        top: -0.8em;
+        left: -0.5em;
+        transform: rotate(-45deg);
+        transform-origin: 2em 2em;
+        border-radius: 4em 0 0 4em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success
+        [class^="swal2-success-circular-line"][class$="right"] {
+        top: -0.25em;
+        left: 0.9375em;
+        transform-origin: 0 1.5em;
+        border-radius: 0 4em 4em 0;
+      }
+      .swal2-popup.swal2-toast .swal2-success .swal2-success-ring {
+        width: 2em;
+        height: 2em;
+      }
+      .swal2-popup.swal2-toast .swal2-success .swal2-success-fix {
+        top: 0;
+        left: 0.4375em;
+        width: 0.4375em;
+        height: 2.6875em;
+      }
+      .swal2-popup.swal2-toast .swal2-success [class^="swal2-success-line"] {
+        height: 0.3125em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success
+        [class^="swal2-success-line"][class$="tip"] {
+        top: 1.125em;
+        left: 0.1875em;
+        width: 0.75em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success
+        [class^="swal2-success-line"][class$="long"] {
+        top: 0.9375em;
+        right: 0.1875em;
+        width: 1.375em;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success.swal2-icon-show
+        .swal2-success-line-tip {
+        -webkit-animation: "swal2-toast-animate-success-line-tip" 0.75s;
+        animation: swal2-toast-animate-success-line-tip 0.75s;
+      }
+      .swal2-popup.swal2-toast
+        .swal2-success.swal2-icon-show
+        .swal2-success-line-long {
+        -webkit-animation: "swal2-toast-animate-success-line-long" 0.75s;
+        animation: "swal2-toast-animate-success-line-long" 0.75s;
+      }
+      .swal2-popup.swal2-toast.swal2-show {
+        -webkit-animation: "swal2-toast-show" 0.5s;
+        animation: "swal2-toast-show" 0.5s;
+      }
+      .swal2-popup.swal2-toast.swal2-hide {
+        -webkit-animation: "swal2-toast-hide" 0.1s forwards;
+        animation: "swal2-toast-hide" 0.1s forwards;
+      }
+      .swal2-container {
+        display: flex;
+        position: fixed;
+        z-index: 1060;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0.625em;
+        overflow-x: hidden;
+        transition: "background-color" 0.1s;
+        -webkit-overflow-scrolling: touch;
+      }
+      .swal2-container.swal2-backdrop-show,
+      .swal2-container.swal2-noanimation {
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .swal2-container.swal2-backdrop-hide {
+        background: 0 0 !important;
+      }
+      .swal2-container.swal2-top {
+        align-items: flex-start;
+      }
+      .swal2-container.swal2-top-left,
+      .swal2-container.swal2-top-start {
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .swal2-container.swal2-top-end,
+      .swal2-container.swal2-top-right {
+        align-items: flex-start;
+        justify-content: flex-end;
+      }
+      .swal2-container.swal2-center {
+        align-items: center;
+      }
+      .swal2-container.swal2-center-left,
+      .swal2-container.swal2-center-start {
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .swal2-container.swal2-center-end,
+      .swal2-container.swal2-center-right {
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .swal2-container.swal2-bottom {
+        align-items: flex-end;
+      }
+      .swal2-container.swal2-bottom-left,
+      .swal2-container.swal2-bottom-start {
+        align-items: flex-end;
+        justify-content: flex-start;
+      }
+      .swal2-container.swal2-bottom-end,
+      .swal2-container.swal2-bottom-right {
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+      .swal2-container.swal2-bottom-end > :first-child,
+      .swal2-container.swal2-bottom-left > :first-child,
+      .swal2-container.swal2-bottom-right > :first-child,
+      .swal2-container.swal2-bottom-start > :first-child,
+      .swal2-container.swal2-bottom > :first-child {
+        margin-top: auto;
+      }
+      .swal2-container.swal2-grow-fullscreen > .swal2-modal {
+        display: flex !important;
+        flex: 1;
+        align-self: stretch;
+        justify-content: center;
+      }
+      .swal2-container.swal2-grow-row > .swal2-modal {
+        display: flex !important;
+        flex: 1;
+        align-content: center;
+        justify-content: center;
+      }
+      .swal2-container.swal2-grow-column {
+        flex: 1;
+        flex-direction: column;
+      }
+      .swal2-container.swal2-grow-column.swal2-bottom,
+      .swal2-container.swal2-grow-column.swal2-center,
+      .swal2-container.swal2-grow-column.swal2-top {
+        align-items: center;
+      }
+      .swal2-container.swal2-grow-column.swal2-bottom-left,
+      .swal2-container.swal2-grow-column.swal2-bottom-start,
+      .swal2-container.swal2-grow-column.swal2-center-left,
+      .swal2-container.swal2-grow-column.swal2-center-start,
+      .swal2-container.swal2-grow-column.swal2-top-left,
+      .swal2-container.swal2-grow-column.swal2-top-start {
+        align-items: flex-start;
+      }
+      .swal2-container.swal2-grow-column.swal2-bottom-end,
+      .swal2-container.swal2-grow-column.swal2-bottom-right,
+      .swal2-container.swal2-grow-column.swal2-center-end,
+      .swal2-container.swal2-grow-column.swal2-center-right,
+      .swal2-container.swal2-grow-column.swal2-top-end,
+      .swal2-container.swal2-grow-column.swal2-top-right {
+        align-items: flex-end;
+      }
+      .swal2-container.swal2-grow-column > .swal2-modal {
+        display: flex !important;
+        flex: 1;
+        align-content: center;
+        justify-content: center;
+      }
+      .swal2-container.swal2-no-transition {
+        transition: none !important;
+      }
+      .swal2-container:not(.swal2-top):not(.swal2-top-start):not(
+          .swal2-top-end
+        ):not(.swal2-top-left):not(.swal2-top-right):not(
+          .swal2-center-start
+        ):not(.swal2-center-end):not(.swal2-center-left):not(
+          .swal2-center-right
+        ):not(.swal2-bottom):not(.swal2-bottom-start):not(
+          .swal2-bottom-end
+        ):not(.swal2-bottom-left):not(.swal2-bottom-right):not(
+          .swal2-grow-fullscreen
+        )
+        > .swal2-modal {
+        margin: auto;
+      }
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .swal2-container .swal2-modal {
+          margin: 0 !important;
+        }
+      }
+      .swal2-popup {
+        display: none;
+        position: relative;
+        box-sizing: border-box;
+        flex-direction: column;
+        justify-content: center;
+        width: 32em;
+        max-width: 100%;
+        padding: 1.25em;
+        border: none;
+        border-radius: 0.3125em;
+        background: #fff;
+        font-family: inherit;
+        font-size: 1rem;
+      }
+      .swal2-popup:focus {
+        outline: 0;
+      }
+      .swal2-popup.swal2-loading {
+        overflow-y: hidden;
+      }
+      .swal2-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1.8em;
+      }
+      .swal2-title {
+        position: relative;
+        max-width: 100%;
+        margin: 0 0 0.4em;
+        padding: 0;
+        color: #595959;
+        font-size: 1.875em;
+        font-weight: 600;
+        text-align: center;
+        text-transform: none;
+        word-wrap: break-word;
+      }
+      .swal2-actions {
+        display: flex;
+        z-index: 1;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 1.25em auto 0;
+      }
+      .swal2-actions:not(.swal2-loading) .swal2-styled[disabled] {
+        opacity: 0.4;
+      }
+      .swal2-actions:not(.swal2-loading) .swal2-styled:hover {
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.1)
+        );
+      }
+      .swal2-actions:not(.swal2-loading) .swal2-styled:active {
+        background-image: linear-gradient(
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.2)
+        );
+      }
+      .swal2-actions.swal2-loading .swal2-styled.swal2-confirm {
+        box-sizing: border-box;
+        width: 2.5em;
+        height: 2.5em;
+        margin: 0.46875em;
+        padding: 0;
+        -webkit-animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+        animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+        border: 0.25em solid transparent;
+        border-radius: 100%;
+        border-color: transparent;
+        background-color: transparent !important;
+        color: transparent !important;
+        cursor: default;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .swal2-actions.swal2-loading .swal2-styled.swal2-cancel {
+        margin-right: 30px;
+        margin-left: 30px;
+      }
+      .swal2-actions.swal2-loading :not(.swal2-styled).swal2-confirm::after {
+        content: "";
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        margin-left: 5px;
+        -webkit-animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+        animation: swal2-rotate-loading 1.5s linear 0s infinite normal;
+        border: 3px solid #999;
+        border-radius: 50%;
+        border-right-color: transparent;
+        box-shadow: 1px 1px 1px #fff;
+      }
+      .swal2-styled {
+        margin: 0.3125em;
+        padding: 0.625em 2em;
+        box-shadow: none;
+        font-weight: 500;
+      }
+      .swal2-styled:not([disabled]) {
+        cursor: pointer;
+      }
+      .swal2-styled.swal2-confirm {
+        border: 0;
+        border-radius: 0.25em;
+        background: initial;
+        background-color: #3085d6;
+        color: #fff;
+        font-size: 1.0625em;
+      }
+      .swal2-styled.swal2-cancel {
+        border: 0;
+        border-radius: 0.25em;
+        background: initial;
+        background-color: #aaa;
+        color: #fff;
+        font-size: 1.0625em;
+      }
+      .swal2-styled:focus {
+        outline: 0;
+        box-shadow:
+          0 0 0 1px #fff,
+          0 0 0 3px rgba(50, 100, 150, 0.4);
+      }
+      .swal2-styled::-moz-focus-inner {
+        border: 0;
+      }
+      .swal2-footer {
+        justify-content: center;
+        margin: 1.25em 0 0;
+        padding: 1em 0 0;
+        border-top: 1px solid #eee;
+        color: #545454;
+        font-size: 1em;
+      }
+      .swal2-timer-progress-bar-container {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 0.25em;
+        overflow: hidden;
+        border-bottom-right-radius: 0.3125em;
+        border-bottom-left-radius: 0.3125em;
+      }
+      .swal2-timer-progress-bar {
+        width: 100%;
+        height: 0.25em;
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .swal2-image {
+        max-width: 100%;
+        margin: 1.25em auto;
+      }
+      .swal2-close {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        align-items: center;
+        justify-content: center;
+        width: 1.2em;
+        height: 1.2em;
+        padding: 0;
+        overflow: hidden;
+        transition: color 0.1s ease-out;
+        border: none;
+        border-radius: 0;
+        background: 0 0;
+        color: #ccc;
+        font-family: serif;
+        font-size: 2.5em;
+        line-height: 1.2;
+        cursor: pointer;
+      }
+      .swal2-close:hover {
+        transform: none;
+        background: 0 0;
+        color: #f27474;
+      }
+      .swal2-close::-moz-focus-inner {
+        border: 0;
+      }
+      .swal2-content {
+        z-index: 1;
+        justify-content: center;
+        margin: 0;
+        padding: 0 1.6em;
+        color: #545454;
+        font-size: 1.125em;
+        font-weight: 400;
+        line-height: normal;
+        text-align: center;
+        word-wrap: break-word;
+      }
+      .swal2-checkbox,
+      .swal2-file,
+      .swal2-input,
+      .swal2-radio,
+      .swal2-select,
+      .swal2-textarea {
+        margin: 1em auto;
+      }
+      .swal2-file,
+      .swal2-input,
+      .swal2-textarea {
+        box-sizing: border-box;
+        width: 100%;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
+        border: 1px solid #d9d9d9;
+        border-radius: 0.1875em;
+        background: inherit;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.06);
+        color: inherit;
+        font-size: 1.125em;
+      }
+      .swal2-file.swal2-inputerror,
+      .swal2-input.swal2-inputerror,
+      .swal2-textarea.swal2-inputerror {
+        border-color: #f27474 !important;
+        box-shadow: 0 0 2px #f27474 !important;
+      }
+      .swal2-file:focus,
+      .swal2-input:focus,
+      .swal2-textarea:focus {
+        border: 1px solid #b4dbed;
+        outline: 0;
+        box-shadow: 0 0 3px #c4e6f5;
+      }
+      .swal2-file::-moz-placeholder,
+      .swal2-input::-moz-placeholder,
+      .swal2-textarea::-moz-placeholder {
+        color: #ccc;
+      }
+      .swal2-file:-ms-input-placeholder,
+      .swal2-input:-ms-input-placeholder,
+      .swal2-textarea:-ms-input-placeholder {
+        color: #ccc;
+      }
+      .swal2-file::-ms-input-placeholder,
+      .swal2-input::-ms-input-placeholder,
+      .swal2-textarea::-ms-input-placeholder {
+        color: #ccc;
+      }
+      .swal2-file::placeholder,
+      .swal2-input::placeholder,
+      .swal2-textarea::placeholder {
+        color: #ccc;
+      }
+      .swal2-range {
+        margin: 1em auto;
+        background: #fff;
+      }
+      .swal2-range input {
+        width: 80%;
+      }
+      .swal2-range output {
+        width: 20%;
+        color: inherit;
+        font-weight: 600;
+        text-align: center;
+      }
+      .swal2-range input,
+      .swal2-range output {
+        height: 2.625em;
+        padding: 0;
+        font-size: 1.125em;
+        line-height: 2.625em;
+      }
+      .swal2-input {
+        height: 2.625em;
+        padding: 0 0.75em;
+      }
+      .swal2-input[type="number"] {
+        max-width: 10em;
+      }
+      .swal2-file {
+        background: inherit;
+        font-size: 1.125em;
+      }
+      .swal2-textarea {
+        height: 6.75em;
+        padding: 0.75em;
+      }
+      .swal2-select {
+        min-width: 50%;
+        max-width: 100%;
+        padding: 0.375em 0.625em;
+        background: inherit;
+        color: inherit;
+        font-size: 1.125em;
+      }
+      .swal2-checkbox,
+      .swal2-radio {
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        color: inherit;
+      }
+      .swal2-checkbox label,
+      .swal2-radio label {
+        margin: 0 0.6em;
+        font-size: 1.125em;
+      }
+      .swal2-checkbox input,
+      .swal2-radio input {
+        margin: 0 0.4em;
+      }
+      .swal2-validation-message {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 0.625em;
+        overflow: hidden;
+        background: #f0f0f0;
+        color: #666;
+        font-size: 1em;
+        font-weight: 300;
+      }
+      .swal2-validation-message::before {
+        content: "!";
+        display: inline-block;
+        width: 1.5em;
+        min-width: 1.5em;
+        height: 1.5em;
+        margin: 0 0.625em;
+        border-radius: 50%;
+        background-color: #f27474;
+        color: #fff;
+        font-weight: 600;
+        line-height: 1.5em;
+        text-align: center;
+      }
+      .swal2-icon {
+        position: relative;
+        box-sizing: content-box;
+        justify-content: center;
+        width: 5em;
+        height: 5em;
+        margin: 1.25em auto 1.875em;
+        border: 0.25em solid transparent;
+        border-radius: 50%;
+        font-family: inherit;
+        line-height: 5em;
+        cursor: default;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .swal2-icon .swal2-icon-content {
+        display: flex;
+        align-items: center;
+        font-size: 3.75em;
+      }
+      .swal2-icon.swal2-error {
+        border-color: #f27474;
+        color: #f27474;
+      }
+      .swal2-icon.swal2-error .swal2-x-mark {
+        position: relative;
+        flex-grow: 1;
+      }
+      .swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
+        display: block;
+        position: absolute;
+        top: 2.3125em;
+        width: 2.9375em;
+        height: 0.3125em;
+        border-radius: 0.125em;
+        background-color: #f27474;
+      }
+      .swal2-icon.swal2-error [class^="swal2-x-mark-line"][class$="left"] {
+        left: 1.0625em;
+        transform: rotate(45deg);
+      }
+      .swal2-icon.swal2-error [class^="swal2-x-mark-line"][class$="right"] {
+        right: 1em;
+        transform: rotate(-45deg);
+      }
+      .swal2-icon.swal2-error.swal2-icon-show {
+        -webkit-animation: "swal2-animate-error-icon" 0.5s;
+        animation: "swal2-animate-error-icon" 0.5s;
+      }
+      .swal2-icon.swal2-error.swal2-icon-show .swal2-x-mark {
+        -webkit-animation: "swal2-animate-error-x-mark" 0.5s;
+        animation: "swal2-animate-error-x-mark" 0.5s;
+      }
+      .swal2-icon.swal2-warning {
+        border-color: #facea8;
+        color: #f8bb86;
+      }
+      .swal2-icon.swal2-info {
+        border-color: #9de0f6;
+        color: #3fc3ee;
+      }
+      .swal2-icon.swal2-question {
+        border-color: #c9dae1;
+        color: #87adbd;
+      }
+      .swal2-icon.swal2-success {
+        border-color: #a5dc86;
+        color: #a5dc86;
+      }
+      .swal2-icon.swal2-success [class^="swal2-success-circular-line"] {
+        position: absolute;
+        width: 3.75em;
+        height: 7.5em;
+        transform: rotate(45deg);
+        border-radius: 50%;
+      }
+      .swal2-icon.swal2-success
+        [class^="swal2-success-circular-line"][class$="left"] {
+        top: -0.4375em;
+        left: -2.0635em;
+        transform: rotate(-45deg);
+        transform-origin: 3.75em 3.75em;
+        border-radius: 7.5em 0 0 7.5em;
+      }
+      .swal2-icon.swal2-success
+        [class^="swal2-success-circular-line"][class$="right"] {
+        top: -0.6875em;
+        left: 1.875em;
+        transform: rotate(-45deg);
+        transform-origin: 0 3.75em;
+        border-radius: 0 7.5em 7.5em 0;
+      }
+      .swal2-icon.swal2-success .swal2-success-ring {
+        position: absolute;
+        z-index: 2;
+        top: -0.25em;
+        left: -0.25em;
+        box-sizing: content-box;
+        width: 100%;
+        height: 100%;
+        border: 0.25em solid rgba(165, 220, 134, 0.3);
+        border-radius: 50%;
+      }
+      .swal2-icon.swal2-success .swal2-success-fix {
+        position: absolute;
+        z-index: 1;
+        top: 0.5em;
+        left: 1.625em;
+        width: 0.4375em;
+        height: 5.625em;
+        transform: rotate(-45deg);
+      }
+      .swal2-icon.swal2-success [class^="swal2-success-line"] {
+        display: block;
+        position: absolute;
+        z-index: 2;
+        height: 0.3125em;
+        border-radius: 0.125em;
+        background-color: #a5dc86;
+      }
+      .swal2-icon.swal2-success [class^="swal2-success-line"][class$="tip"] {
+        top: 2.875em;
+        left: 0.8125em;
+        width: 1.5625em;
+        transform: rotate(45deg);
+      }
+      .swal2-icon.swal2-success [class^="swal2-success-line"][class$="long"] {
+        top: 2.375em;
+        right: 0.5em;
+        width: 2.9375em;
+        transform: rotate(-45deg);
+      }
+      .swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-tip {
+        -webkit-animation: swal2-animate-success-line-tip 0.75s;
+        animation: swal2-animate-success-line-tip 0.75s;
+      }
+      .swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-long {
+        -webkit-animation: swal2-animate-success-line-long 0.75s;
+        animation: swal2-animate-success-line-long 0.75s;
+      }
+      .swal2-icon.swal2-success.swal2-icon-show
+        .swal2-success-circular-line-right {
+        -webkit-animation: swal2-rotate-success-circular-line 4.25s ease-in;
+        animation: swal2-rotate-success-circular-line 4.25s ease-in;
+      }
+      .swal2-progress-steps {
+        align-items: center;
+        margin: 0 0 1.25em;
+        padding: 0;
+        background: inherit;
+        font-weight: 600;
+      }
+      .swal2-progress-steps li {
+        display: inline-block;
+        position: relative;
+      }
+      .swal2-progress-steps .swal2-progress-step {
+        z-index: 20;
+        width: 2em;
+        height: 2em;
+        border-radius: 2em;
+        background: #3085d6;
+        color: #fff;
+        line-height: 2em;
+        text-align: center;
+      }
+      .swal2-progress-steps .swal2-progress-step.swal2-active-progress-step {
+        background: #3085d6;
+      }
+      .swal2-progress-steps
+        .swal2-progress-step.swal2-active-progress-step
+        ~ .swal2-progress-step {
+        background: #add8e6;
+        color: #fff;
+      }
+      .swal2-progress-steps
+        .swal2-progress-step.swal2-active-progress-step
+        ~ .swal2-progress-step-line {
+        background: #add8e6;
+      }
+      .swal2-progress-steps .swal2-progress-step-line {
+        z-index: 10;
+        width: 2.5em;
+        height: 0.4em;
+        margin: 0 -1px;
+        background: #3085d6;
+      }
+      [class^="swal2"] {
+        -webkit-tap-highlight-color: transparent;
+      }
+      .swal2-show {
+        -webkit-animation: swal2-show 0.3s;
+        animation: swal2-show 0.3s;
+      }
+      .swal2-hide {
+        -webkit-animation: swal2-hide 0.15s forwards;
+        animation: swal2-hide 0.15s forwards;
+      }
+      .swal2-noanimation {
+        transition: none;
+      }
+      .swal2-scrollbar-measure {
+        position: absolute;
+        top: -9999px;
+        width: 50px;
+        height: 50px;
+        overflow: scroll;
+      }
+      .swal2-rtl .swal2-close {
+        right: auto;
+        left: 0;
+      }
+      .swal2-rtl .swal2-timer-progress-bar {
+        right: 0;
+        left: auto;
+      }
+      @supports (-ms-accelerator: true) {
+        .swal2-range input {
+          width: 100% !important;
+        }
+        .swal2-range output {
+          display: none;
+        }
+      }
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        .swal2-range input {
+          width: 100% !important;
+        }
+        .swal2-range output {
+          display: none;
+        }
+      }
+      @-moz-document url-prefix() {
+        .swal2-close:focus {
+          outline: 2px solid rgba(50, 100, 150, 0.4);
+        }
+      }
+      @-webkit-keyframes swal2-toast-show {
+        0% {
+          transform: translateY(-0.625em) rotateZ(2deg);
+        }
+        33% {
+          transform: translateY(0) rotateZ(-2deg);
+        }
+        66% {
+          transform: translateY(0.3125em) rotateZ(2deg);
+        }
+        100% {
+          transform: translateY(0) rotateZ(0);
+        }
+      }
+      @keyframes swal2-toast-show {
+        0% {
+          transform: translateY(-0.625em) rotateZ(2deg);
+        }
+        33% {
+          transform: translateY(0) rotateZ(-2deg);
+        }
+        66% {
+          transform: translateY(0.3125em) rotateZ(2deg);
+        }
+        100% {
+          transform: translateY(0) rotateZ(0);
+        }
+      }
+      @-webkit-keyframes swal2-toast-hide {
+        100% {
+          transform: rotateZ(1deg);
+          opacity: 0;
+        }
+      }
+      @keyframes swal2-toast-hide {
+        100% {
+          transform: rotateZ(1deg);
+          opacity: 0;
+        }
+      }
+      @-webkit-keyframes swal2-toast-animate-success-line-tip {
+        0% {
+          top: 0.5625em;
+          left: 0.0625em;
+          width: 0;
+        }
+        54% {
+          top: 0.125em;
+          left: 0.125em;
+          width: 0;
+        }
+        70% {
+          top: 0.625em;
+          left: -0.25em;
+          width: 1.625em;
+        }
+        84% {
+          top: 1.0625em;
+          left: 0.75em;
+          width: 0.5em;
+        }
+        100% {
+          top: 1.125em;
+          left: 0.1875em;
+          width: 0.75em;
+        }
+      }
+      @keyframes swal2-toast-animate-success-line-tip {
+        0% {
+          top: 0.5625em;
+          left: 0.0625em;
+          width: 0;
+        }
+        54% {
+          top: 0.125em;
+          left: 0.125em;
+          width: 0;
+        }
+        70% {
+          top: 0.625em;
+          left: -0.25em;
+          width: 1.625em;
+        }
+        84% {
+          top: 1.0625em;
+          left: 0.75em;
+          width: 0.5em;
+        }
+        100% {
+          top: 1.125em;
+          left: 0.1875em;
+          width: 0.75em;
+        }
+      }
+      @-webkit-keyframes swal2-toast-animate-success-line-long {
+        0% {
+          top: 1.625em;
+          right: 1.375em;
+          width: 0;
+        }
+        65% {
+          top: 1.25em;
+          right: 0.9375em;
+          width: 0;
+        }
+        84% {
+          top: 0.9375em;
+          right: 0;
+          width: 1.125em;
+        }
+        100% {
+          top: 0.9375em;
+          right: 0.1875em;
+          width: 1.375em;
+        }
+      }
+      @keyframes swal2-toast-animate-success-line-long {
+        0% {
+          top: 1.625em;
+          right: 1.375em;
+          width: 0;
+        }
+        65% {
+          top: 1.25em;
+          right: 0.9375em;
+          width: 0;
+        }
+        84% {
+          top: 0.9375em;
+          right: 0;
+          width: 1.125em;
+        }
+        100% {
+          top: 0.9375em;
+          right: 0.1875em;
+          width: 1.375em;
+        }
+      }
+      @-webkit-keyframes swal2-show {
+        0% {
+          transform: scale(0.7);
+        }
+        45% {
+          transform: scale(1.05);
+        }
+        80% {
+          transform: scale(0.95);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes swal2-show {
+        0% {
+          transform: scale(0.7);
+        }
+        45% {
+          transform: scale(1.05);
+        }
+        80% {
+          transform: scale(0.95);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @-webkit-keyframes swal2-hide {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+      }
+      @keyframes swal2-hide {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+      }
+      @-webkit-keyframes swal2-animate-success-line-tip {
+        0% {
+          top: 1.1875em;
+          left: 0.0625em;
+          width: 0;
+        }
+        54% {
+          top: 1.0625em;
+          left: 0.125em;
+          width: 0;
+        }
+        70% {
+          top: 2.1875em;
+          left: -0.375em;
+          width: 3.125em;
+        }
+        84% {
+          top: 3em;
+          left: 1.3125em;
+          width: 1.0625em;
+        }
+        100% {
+          top: 2.8125em;
+          left: 0.8125em;
+          width: 1.5625em;
+        }
+      }
+      @keyframes swal2-animate-success-line-tip {
+        0% {
+          top: 1.1875em;
+          left: 0.0625em;
+          width: 0;
+        }
+        54% {
+          top: 1.0625em;
+          left: 0.125em;
+          width: 0;
+        }
+        70% {
+          top: 2.1875em;
+          left: -0.375em;
+          width: 3.125em;
+        }
+        84% {
+          top: 3em;
+          left: 1.3125em;
+          width: 1.0625em;
+        }
+        100% {
+          top: 2.8125em;
+          left: 0.8125em;
+          width: 1.5625em;
+        }
+      }
+      @-webkit-keyframes swal2-animate-success-line-long {
+        0% {
+          top: 3.375em;
+          right: 2.875em;
+          width: 0;
+        }
+        65% {
+          top: 3.375em;
+          right: 2.875em;
+          width: 0;
+        }
+        84% {
+          top: 2.1875em;
+          right: 0;
+          width: 3.4375em;
+        }
+        100% {
+          top: 2.375em;
+          right: 0.5em;
+          width: 2.9375em;
+        }
+      }
+      @keyframes swal2-animate-success-line-long {
+        0% {
+          top: 3.375em;
+          right: 2.875em;
+          width: 0;
+        }
+        65% {
+          top: 3.375em;
+          right: 2.875em;
+          width: 0;
+        }
+        84% {
+          top: 2.1875em;
+          right: 0;
+          width: 3.4375em;
+        }
+        100% {
+          top: 2.375em;
+          right: 0.5em;
+          width: 2.9375em;
+        }
+      }
+      @-webkit-keyframes swal2-rotate-success-circular-line {
+        0% {
+          transform: rotate(-45deg);
+        }
+        5% {
+          transform: rotate(-45deg);
+        }
+        12% {
+          transform: rotate(-405deg);
+        }
+        100% {
+          transform: rotate(-405deg);
+        }
+      }
+      @keyframes swal2-rotate-success-circular-line {
+        0% {
+          transform: rotate(-45deg);
+        }
+        5% {
+          transform: rotate(-45deg);
+        }
+        12% {
+          transform: rotate(-405deg);
+        }
+        100% {
+          transform: rotate(-405deg);
+        }
+      }
+      @-webkit-keyframes swal2-animate-error-x-mark {
+        0% {
+          margin-top: 1.625em;
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        50% {
+          margin-top: 1.625em;
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        80% {
+          margin-top: -0.375em;
+          transform: scale(1.15);
+        }
+        100% {
+          margin-top: 0;
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes swal2-animate-error-x-mark {
+        0% {
+          margin-top: 1.625em;
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        50% {
+          margin-top: 1.625em;
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        80% {
+          margin-top: -0.375em;
+          transform: scale(1.15);
+        }
+        100% {
+          margin-top: 0;
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @-webkit-keyframes swal2-animate-error-icon {
+        0% {
+          transform: rotateX(100deg);
+          opacity: 0;
+        }
+        100% {
+          transform: rotateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes swal2-animate-error-icon {
+        0% {
+          transform: rotateX(100deg);
+          opacity: 0;
+        }
+        100% {
+          transform: rotateX(0);
+          opacity: 1;
+        }
+      }
+      @-webkit-keyframes swal2-rotate-loading {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes swal2-rotate-loading {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+        overflow: hidden;
+      }
+      body.swal2-height-auto {
+        height: auto !important;
+      }
+      body.swal2-no-backdrop .swal2-container {
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        max-width: calc(100% - 0.625em * 2);
+        background-color: transparent !important;
+      }
+      body.swal2-no-backdrop .swal2-container > .swal2-modal {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-top {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-top-left,
+      body.swal2-no-backdrop .swal2-container.swal2-top-start {
+        top: 0;
+        left: 0;
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-top-end,
+      body.swal2-no-backdrop .swal2-container.swal2-top-right {
+        top: 0;
+        right: 0;
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-center {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-center-left,
+      body.swal2-no-backdrop .swal2-container.swal2-center-start {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-center-end,
+      body.swal2-no-backdrop .swal2-container.swal2-center-right {
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-bottom {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-bottom-left,
+      body.swal2-no-backdrop .swal2-container.swal2-bottom-start {
+        bottom: 0;
+        left: 0;
+      }
+      body.swal2-no-backdrop .swal2-container.swal2-bottom-end,
+      body.swal2-no-backdrop .swal2-container.swal2-bottom-right {
+        right: 0;
+        bottom: 0;
+      }
+      @media print {
+        body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) {
+          overflow-y: scroll !important;
+        }
+        body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)
+          > [aria-hidden="true"] {
+          display: none;
+        }
+        body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)
+          .swal2-container {
+          position: static !important;
+        }
+      }
+      body.swal2-toast-shown .swal2-container {
+        background-color: transparent;
+      }
+      body.swal2-toast-shown .swal2-container.swal2-top {
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      body.swal2-toast-shown .swal2-container.swal2-top-end,
+      body.swal2-toast-shown .swal2-container.swal2-top-right {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: auto;
+      }
+      body.swal2-toast-shown .swal2-container.swal2-top-left,
+      body.swal2-toast-shown .swal2-container.swal2-top-start {
+        top: 0;
+        right: auto;
+        bottom: auto;
+        left: 0;
+      }
+      body.swal2-toast-shown .swal2-container.swal2-center-left,
+      body.swal2-toast-shown .swal2-container.swal2-center-start {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: 0;
+        transform: translateY(-50%);
+      }
+      body.swal2-toast-shown .swal2-container.swal2-center {
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      body.swal2-toast-shown .swal2-container.swal2-center-end,
+      body.swal2-toast-shown .swal2-container.swal2-center-right {
+        top: 50%;
+        right: 0;
+        bottom: auto;
+        left: auto;
+        transform: translateY(-50%);
+      }
+      body.swal2-toast-shown .swal2-container.swal2-bottom-left,
+      body.swal2-toast-shown .swal2-container.swal2-bottom-start {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 0;
+      }
+      body.swal2-toast-shown .swal2-container.swal2-bottom {
+        top: auto;
+        right: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      body.swal2-toast-shown .swal2-container.swal2-bottom-end,
+      body.swal2-toast-shown .swal2-container.swal2-bottom-right {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: auto;
+      }
+      body.swal2-toast-column .swal2-toast {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      body.swal2-toast-column .swal2-toast .swal2-actions {
+        flex: 1;
+        align-self: stretch;
+        height: 2.2em;
+        margin-top: 0.3125em;
+      }
+      body.swal2-toast-column .swal2-toast .swal2-loading {
+        justify-content: center;
+      }
+      body.swal2-toast-column .swal2-toast .swal2-input {
+        height: 2em;
+        margin: 0.3125em auto;
+        font-size: 1em;
+      }
+      body.swal2-toast-column .swal2-toast .swal2-validation-message {
+        font-size: 1em;
+      }
+    </style>
+    <style>
+      @charset "UTF-8";
+      @font-face {
+        font-family: Material Icons;
+        font-style: normal;
+        font-weight: 400;
+        src: url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.eot?88ad171795d44fae44f1fa7fd2de085b);
+        src:
+          local("☺"),
+          url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.woff2?0df457da917dc3011fe73ca96617c5ec)
+            format("woff2"),
+          url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.woff?97d3dada9b7001c0d756a8781c216462)
+            format("woff"),
+          url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.ttf?24d3c2ac9110ebbb3fd7f4fbcb1d6d1b)
+            format("truetype");
+      }
+      .material-icons {
+        word-wrap: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "liga";
+        direction: ltr;
+        display: inline-block;
+        font-display: block;
+        font-family: Material Icons;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: normal;
+        line-height: 1;
+        text-rendering: optimizeLegibility;
+        text-transform: none;
+        white-space: nowrap;
+      }
+    </style>
+    <style>
+      .vue-map-container {
+        position: relative;
+      }
+      .vue-map-container .vue-map {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .vue-map-hidden {
+        display: none;
+      }
+    </style>
+    <style>
+      .vue-street-view-pano-container {
+        position: relative;
+      }
+      .vue-street-view-pano-container .vue-street-view-pano {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    </style>
+    <style>
+      table,
+      td,
+      th,
+      tr {
+        border: 1px solid grey !important;
+        border-collapse: collapse !important;
+      }
+      #watermark {
+        align-items: center;
+        color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        font-size: 200px;
+        font-weight: 700;
+        height: 100vh;
+        justify-content: center;
+        left: 0;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        transform: rotate(-30deg);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        width: 100vw;
+        z-index: 0;
+      }
+      @media print {
+        #watermark {
+          display: none;
+        }
+        .d-print-none {
+          display: none !important;
+        }
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+      @media (max-width: 768px) {
+        .ministry-text {
+          font-size: 1.2rem;
+        }
+        .department-text {
+          font-size: 1rem;
+        }
+        .principal-name,
+        .school-code,
+        .school-name {
+          font-size: 0.9rem;
+        }
+        .table-title {
+          font-size: 1.1rem;
+        }
+        .table {
+          font-size: 0.8rem;
+        }
+        .table td,
+        .table th {
+          font-size: 0.8rem;
+          padding: 6px;
+        }
+        .table img {
+          height: 30px;
+          width: 30px;
+        }
+        .table-responsive-sm {
+          -webkit-overflow-scrolling: touch;
+          display: block;
+          overflow-x: auto;
+          width: 100%;
+        }
+      }
+      @media (max-width: 576px) {
+        .ministry-text {
+          font-size: 0.85rem;
+        }
+        .department-text,
+        .principal-name,
+        .school-code,
+        .school-name {
+          font-size: 0.75rem;
+        }
+        .table-title {
+          font-size: 0.85rem;
+        }
+        .table {
+          font-size: 0.75rem;
+        }
+        .table td,
+        .table th {
+          font-size: 0.65rem;
+          padding: 5px;
+        }
+        .table img {
+          height: 25px;
+          width: 25px;
+        }
+        .state-logo {
+          height: 80px !important;
+          width: 80px !important;
+        }
+        .header-content {
+          text-align: center;
+        }
+      }
+    </style>
+    <style type="text/css">
+      .fade-enter-active[data-v-27234dc7],
+      .fade-leave-active[data-v-27234dc7] {
+        transition: opacity 0.3s;
+      }
+      .fade-enter[data-v-27234dc7],
+      .fade-leave-to[data-v-27234dc7] {
+        opacity: 0;
+      }
+      .velmld-overlay[data-v-27234dc7] {
+        position: absolute;
+        z-index: 3000;
+        margin: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transition: opacity 0.3s;
+      }
+      .velmld-spinner[data-v-27234dc7] {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        text-align: center;
+      }
+      .velmld-full-screen[data-v-27234dc7] {
+        position: fixed;
+      }
+    </style>
+    <style type="text/css">
+      .velmld-parent {
+        position: relative !important;
+      }
+    </style>
+    <!-- <script>
+    window.onload = () => window.print();
+    </script> -->
+
+    <style type="text/css">
+      #nprogress {
+        pointer-events: none;
+      }
+
+      #nprogress .bar {
+        background: #29d;
+
+        position: fixed;
+        z-index: 1031;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 2px;
+      }
+
+      #nprogress .peg {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 100px;
+        height: 100%;
+        box-shadow:
+          0 0 10px #29d,
+          0 0 5px #29d;
+        opacity: 1;
+
+        -webkit-transform: rotate(3deg) translate(0px, -4px);
+        -ms-transform: rotate(3deg) translate(0px, -4px);
+        transform: rotate(3deg) translate(0px, -4px);
+      }
+
+      #nprogress .spinner {
+        display: block;
+        position: fixed;
+        z-index: 1031;
+        top: 15px;
+        right: 15px;
+      }
+
+      #nprogress .spinner-icon {
+        width: 18px;
+        height: 18px;
+        box-sizing: border-box;
+
+        border: solid 2px transparent;
+        border-top-color: #29d;
+        border-left-color: #29d;
+        border-radius: 50%;
+
+        -webkit-animation: nprogress-spinner 400ms linear infinite;
+        animation: nprogress-spinner 400ms linear infinite;
+      }
+
+      .nprogress-custom-parent {
+        overflow: hidden;
+        position: relative;
+      }
+
+      .nprogress-custom-parent #nprogress .spinner,
+      .nprogress-custom-parent #nprogress .bar {
+        position: absolute;
+      }
+
+      @-webkit-keyframes nprogress-spinner {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @keyframes nprogress-spinner {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <title inertia="">- Ogun DiPER</title>
+
+    <style id="edutams-chat-styles">
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Chat Icon Button */
+      .chat-icon-btn {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e53935 0%, #ff3b3b 100%);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        z-index: 1000;
+      }
+
+      .chat-icon-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .chat-icon-btn svg {
+        width: 30px;
+        height: 30px;
+        fill: white;
+      }
+
+      /* Small Options Modal */
+      .options-modal {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 280px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        display: none;
+        z-index: 1001;
+      }
+
+      .options-modal.active {
+        display: block;
+        animation: slideUp 0.3s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .options-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .options-header h3 {
+        font-size: 18px;
+        color: #333;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        color: #666;
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .close-btn:hover {
+        color: #333;
+      }
+
+      .option-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .option-btn {
+        padding: 14px;
+        border: 2px solid #667eea;
+        background: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: #667eea;
+        transition: all 0.2s;
+      }
+
+      .option-btn:hover {
+        background: #667eea;
+        color: white;
+      }
+
+      /* Chat Window */
+      .chat-window {
+        position: fixed;
+        bottom: 10px;
+        right: 20px;
+        width: 380px;
+        height: 550px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        display: none;
+        overflow: hidden;
+        z-index: 1002;
+      }
+
+      .chat-window.minimized {
+        height: 60px !important;
+      }
+
+      .chat-window.active {
+        display: block;
+        animation: slideUp 0.3s ease-out;
+      }
+
+      .chat-iframe-container {
+        width: 100%;
+        height: 100%;
+      }
+
+      .chat-iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 12px;
+      }
+    </style>
   </head>
 
-  <body data-new-gr-c-s-check-loaded="14.1267.0" data-gr-ext-installed="">
-    <img src="" width="100" />
+  <body data-new-gr-c-s-check-loaded="14.1132.0" data-gr-ext-installed="">
+    <div
+      id="app"
+      data-page='{"component":"EducationServices/ExamClearance/ManageClearance/Partials/ClearanceList","props":{"errors":{},"appName":"Laravel","customizations":[{"id":1,"name":"session_name","module":"calendar","value":"Session","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":2,"name":"semester_name","module":"calendar","value":"Semester","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":3,"name":"semester_count","module":"calendar","value":"2","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":4,"name":"college_name","module":"censis","value":"College","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":5,"name":"department_name","module":"censis","value":"Department","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":6,"name":"programme_name","module":"censis","value":"Programme","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":7,"name":"powered_by_url","module":"censis","value":"https://edutams.net","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":8,"name":"powered_by_logo","module":"censis","value":"/images/tams@2x.png","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":9,"name":"helpdesk_url","module":"censis","value":"https://helpdesk.url","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"},{"id":10,"name":"powered_by_color","module":"censis","value":"#593196cc","created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z"}],"previous_logged_in_as_user":null,"status":null,"auth":{"user":{"id":"661d7e19-e615-44a4-b9b6-b23498081ca1","userId":"E24024","user_type_id":6,"lga_id":null,"fname":"Ezekiel","mname":"Atinsola","lname":"AMORE","email":"chiefatinsolaamore222@gmail.com","phone":"07066100662","sex":"male","dob":null,"image":"https://ik.imagekit.io/edx82gwzy/istockphoto-1332100919-612x612.jpg?updatedAt=1710424155848","signature":null,"address":null,"email_verified_at":"2025-09-08T16:00:08.000000Z","two_factor_secret":null,"two_factor_recovery_codes":null,"two_factor_confirmed_at":null,"religion":"Islam","status":"active","physical_disability":null,"marital_status":null,"genotype":null,"blood_group":null,"created_at":"2022-01-24T20:22:54.000000Z","updated_at":"2025-09-08T16:00:08.000000Z","notification_token":null,"allow_notification":"no","support_app_api_token":null,"full_name":"AMORE Ezekiel Atinsola","teacher":{"id":14060,"user_id":"661d7e19-e615-44a4-b9b6-b23498081ca1","school_id":10822,"state_of_origin_id":null,"lga_id":null,"agency_id":1,"type":"teaching","date_of_first_appointment":null,"employment_status_id":null,"grade_id":null,"date_posted_to_school":null,"effective_session_term_id":1,"effective_session_term_end_id":null,"specialization_id":null,"physically_challenge":"no","major_subject_id":null,"minor_subject_id":null,"options":null,"physical_challenge_id":null,"is_school_admin":"no","is_current_school_admin":"yes","status":"active","retirement_year":null,"retirement_date":null,"nationality":null,"title":null,"file_no":null,"ward_no":null,"professional_status":null,"duty_position_id":null,"last_promotion_date":null,"teacher_designation_id":null,"pension_fund_admin_id":null,"pension_number":null,"residential_lga_id":null,"residential_state_id":null,"first_appointment_in_state":null,"profile_completed":"no","profile_verification":"no","created_at":"2022-01-24T20:22:54.000000Z","updated_at":"2025-09-08T16:00:08.000000Z"}},"permissions":[{"id":1,"name":"core.dashboard","description":"core.dashboard","guard_name":"web","package_id":1,"created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z","pivot":{"role_id":1,"permission_id":1}},{"id":2,"name":"core.auth.profile.view","description":"core.auth.profile.view","guard_name":"web","package_id":1,"created_at":"2025-05-30T16:03:14.000000Z","updated_at":"2025-05-30T16:03:14.000000Z","pivot":{"role_id":1,"permission_id":2}},{"id":47,"name":"core.class_curriculum.create","description":"create class curriculum","guard_name":"web","package_id":2,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":47}},{"id":78,"name":"core.school.class_arm.index","description":"view school class arm structure","guard_name":"web","package_id":3,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":78}},{"id":79,"name":"core.school.class_arm.update","description":"update school class arm","guard_name":"web","package_id":3,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":79}},{"id":80,"name":"core.hr_manager.teacher_profile.index","description":"core.hr_manager.teacher_profile.index","guard_name":"web","package_id":4,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":80}},{"id":83,"name":"core.hr_manager.teacher_profile.view_profile","description":"permission to view Teacher profile","guard_name":"web","package_id":4,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":83}},{"id":87,"name":"core.hr_manager.appointment.appoint_school_head.appoint","description":"Appoint School Head","guard_name":"web","package_id":4,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":87}},{"id":90,"name":"core.hr_manager.appointment.delete_school_vp.delete","description":"Delete School Vp","guard_name":"web","package_id":4,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":90}},{"id":94,"name":"enrolment_manager.enrol_learner.index","description":"Manage enrollment processes","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":94}},
+    {"id":95,"name":"enrolment_manager.enrol_learner.single_enrollment.create","description":"Create learner by single enrollment","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":95}},{"id":97,"name":"enrolment_manager.enrol_learner.image_upload","description":"Upload learner Image","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":97}},{"id":98,"name":"enrolment_manager.enrol_learner.edit","description":"Edit learner enrollment","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":98}},{"id":99,"name":"enrolment_manager.enrol_learner.delete","description":"Delete learner enrollment","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":99}},{"id":100,"name":"enrolment_manager.enrol_learner.view","description":"View learner enrollment","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":100}},{"id":103,"name":"enrolment_manager.enrol_learner.add_to_class","description":"Add enrolled learner to class","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":103}},{"id":105,"name":"enrolment_manager.screening_application.online_application.index","description":"Manage Screening Online Application Index Page","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":105}},{"id":106,"name":"enrolment_manager.screening_application.index","description":"Manage My Application","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":106}},{"id":109,"name":"enrolment_manager.placement.my_placement.index","description":"Access Myplacement page","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":109}},{"id":118,"name":"enrolment_manager.transfer.manage_application.index","description":"Process Transfer Applications","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":118}},{"id":121,"name":"enrolment_manager.transfer.manage_application.bulk_review_applications.bulk_review","description":"Bulk Review Transfer Applications","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":121}},{"id":122,"name":"enrolment_manager.transfer.manage_application.bulk_approve_applications.bulk_approve","description":"Bulk Approve Transfer Applications","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":122}},{"id":123,"name":"enrolment_manager.transfer.manage_application.reverse_submission.reverse","description":"Reverse Transfer Application Submission","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":123}},{"id":125,"name":"enrolment_manager.transfer.manage_application.submit_learner_class_arm.submit","description":"Submit Learner Class Arm","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":125}},{"id":126,"name":"enrolment_manager.transfer.manage_application.create_inward_transfer_application.create","description":"Create Inward Transfer Application","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":126}},{"id":127,"name":"enrolment_manager.transfer.manage_application.submit_learner_class_arm_for_inward_transfer.submit","description":"Submit Learner Class Arm For Inward Transfer","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":127}},{"id":128,"name":"enrolment_manager.transfer.manage_application.single_release_learner.release","description":"Release Single Learner","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":128}},{"id":129,"name":"enrolment_manager.transfer.manage_application.decline_learner.decline","description":"Decline Learner","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":129}},{"id":130,"name":"enrolment_manager.transfer.my_application.index","description":"Access Transfer Application Page","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":130}},{"id":131,"name":"enrolment_manager.transfer.my_application.create_transfer_applications.create","description":"Create Transfer Application","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":131}},{"id":132,"name":"enrolment_manager.transfer.my_application.submit_application_form.submit","description":"Submit Transfer Application Form","guard_name":"web","package_id":6,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":132}},{"id":133,"name":"school_activities.school_manager.school_curriculum.index","description":"School class curriculum management index","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":133}},{"id":134,"name":"school_activities.school_manager.school_curriculum.create","description":"create school class curriculum","guard_name":"
+        web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-11-26T14:59:32.000000Z","pivot":{"role_id":6,"permission_id":134}},{"id":135,"name":"school_activities.school_manager.school_appointment.index","description":"School appointment and position schedule index","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":135}},{"id":136,"name":"school_activities.school_manager.school_appointment.appoint_spa","description":"SPA Appointment","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":136}},{"id":137,"name":"school_activities.school_manager.school_appointment.edit_spa","description":"Change Of SPA","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":137}},{"id":138,"name":"school_activities.school_manager.school_appointment.appoint_class_teacher","description":"Appointment of Class Teacher","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":138}},{"id":139,"name":"school_activities.school_manager.school_appointment.change_class_teacher","description":"Change of Class Teacher","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":139}},{"id":140,"name":"school_activities.school_manager.school_appointment.get_class_teacher_history","description":"View History of Class Teachers","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":140}},{"id":141,"name":"school_activities.school_manager.school_appointment.appoint_form_teacher","description":"Appointment of Form Teacher","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":141}},{"id":142,"name":"school_activities.school_manager.school_appointment.change_form_teacher","description":"Change of Form Teacher","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":142}},{"id":143,"name":"school_activities.school_manager.school_appointment.get_form_teacher_history","description":"View History of Form Teachers","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":143}},{"id":144,"name":"school_activities.school_manager.school_appointment.appoint_subject_teacher","description":"School appointment and subject teacher appointment","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":144}},{"id":145,"name":"school_activities.school_manager.school_appointment.change_subject_teacher","description":"School appointment and change of subject teacher","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":145}},{"id":146,"name":"school_activities.school_manager.school_appointment.subject_teacher_history","description":"School appointment and subject teacher history","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":146}},{"id":147,"name":"school_activities.school_manager.class_register.index","description":"School class register view","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":147}},{"id":148,"name":"school_activities.school_manager.subject_registration.index","description":"Student subject registration page","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":148}},{"id":149,"name":"school_activities.school_manager.attendance_psychomotor.mark_attendance","description":"Students Attendance MArking","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":149}},{"id":150,"name":"school_activities.school_manager.attendance_psychomotor.index","description":"Class attendance and psychomotor marking page","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":150}},{"id":151,"name":"school_activities.school_manager.attendance_psychomotor.add_affective_domain","description":"Add affective domain","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":151}},{"id":152,"name":"school_activities.school_manager.attendance_psychomotor.update_affective_domain","description":"Update affective domain","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":152}},{"id":153,"name":"school_activities.school_manager.attendance_psychomotor.update_affective_status","description":"Change affective domain status","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":153}},{"id":154,"name":"school_activities.school_manager.attendance_psychomotor.add_psychomotor_domain","description":"Add psychomotor domain","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":154}},{"id":155,"name":"school_activities.school_manager.attendance_psychomotor.update_psychomotor_domain","description":"Update psychomotor domain","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":155}},{"id":156,"name":"school_activities.school_manager.attendance_psychomotor.update_psychomotor_status","description":"
+            Change psychomotor domain status","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":156}},{"id":157,"name":"school_activities.school_manager.attendance_psychomotor.submit_affective_psychomotor_rating","description":"Submit affective and psychomotor domain rating","guard_name":"web","package_id":7,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":157}},{"id":158,"name":"digital_class.lesson_note.index","description":"View Lesson Note Landing Page","guard_name":"web","package_id":8,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":158}},{"id":159,"name":"result_manager.analytics.index","description":"View Result Performance Analytics Page","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":14,"permission_id":159}},{"id":161,"name":"result_manager.score_upload.view_all_programmes","description":"View all programmes for result","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":161}},{"id":162,"name":"result_manager.score_upload.view_all_classes","description":"View all classes for result","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":162}},{"id":163,"name":"result_manager.score_upload.view_all_subjects","description":"View all subjects for result","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":163}},{"id":164,"name":"result_manager.set_up.ca_report_toggle","description":"Change C.A. status on Setup Page","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":164}},{"id":165,"name":"result_manager.score_upload.index","description":"Manage score upload","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":165}},{"id":166,"name":"result_manager.result_sheet.index","description":"Manage result sheets (broadsheet &amp; summary sheet)","guard_name":"web","package_id":9,"created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-05-30T16:03:15.000000Z","pivot":{"role_id":6,"permission_id":166}},{"id":168,"name":"education_services.exam_clearance.manage_clearance.index","description":"Manage learners for exam clearance","guard_name":"web","package_id":10,"created_at":"2025-06-07T11:24:47.000000Z","updated_at":"2025-06-07T11:24:47.000000Z","pivot":{"role_id":6,"permission_id":168}},{"id":181,"name":"school_activities.school_manager.school_geolocation.details","description":"school_activities.school_manager.school_geolocation.details","guard_name":"web","package_id":11,"created_at":"2025-07-28T08:04:09.000000Z","updated_at":"2025-07-28T08:04:09.000000Z","pivot":{"role_id":14,"permission_id":181}},{"id":183,"name":"enrolment_manager.screening_application.create_application.create","description":"Create Screening Application","guard_name":"web","package_id":6,"created_at":"2025-09-08T12:51:39.000000Z","updated_at":"2025-09-08T12:51:39.000000Z","pivot":{"role_id":6,"permission_id":183}},{"id":184,"name":"core.hr_manager.update_teacher_profile.index","description":"View Update Teacher Profile Page","guard_name":"web","package_id":4,"created_at":"2025-09-14T16:32:11.000000Z","updated_at":"2025-09-14T16:32:11.000000Z","pivot":{"role_id":7,"permission_id":184}},{"id":192,"name":"school_activities.class_manager.remove_from_class","description":"Remove learner from current class","guard_name":"web","package_id":7,"created_at":"2025-10-07T11:02:24.000000Z","updated_at":"2025-10-07T11:02:24.000000Z","pivot":{"role_id":6,"permission_id":192}},{"id":205,"name":"core.hr_manager.teacher_profile.reset-password","description":"Reset Teacher Password","guard_name":"web","package_id":4,"created_at":"2025-10-08T16:26:34.000000Z","updated_at":"2025-10-08T16:26:34.000000Z","pivot":{"role_id":6,"permission_id":205}},{"id":211,"name":"result_manager.promotion_setting.spa.save_school_cummulative","description":"set school passmark","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":211}},{"id":212,"name":"result_manager.promotion_setting.spa.edit_school_promotion_settings","description":"set school subjects passmrak","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":212}},{"id":213,"name":"result_manager.promotion_setting.spa.default_fetch","description":"view ministry promotion settings","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":213}},{"id":214,"name":"result_manager.promotion_setting.spa.index","description":"view school promotion settings page","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":14,"permission_id":214}},{"id":221,"name":"result_manager.score_upload.edit_result","description":"Edit uploaded results","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":221}},{"id":222,"name":"result_manager.score_upload.update_results_submit_status","description":"Update results submission status","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":222}},{"id":223,"name":"result_manager.score_upload.reverse_submission","description":"Reverse result submission","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":223}},{"id":224,"name":"result_manager.score_upload.upload_single","description":"Upload single subject results","guard_name":"
+                web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":224}},{"id":225,"name":"result_manager.score_upload.upload_ca_exam","description":"Upload CA exam results","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":225}},{"id":226,"name":"result_manager.score_upload.upload_combined","description":"Upload combined results","guard_name":"web","package_id":9,"created_at":"2025-10-15T08:16:08.000000Z","updated_at":"2025-10-15T08:16:08.000000Z","pivot":{"role_id":6,"permission_id":226}},{"id":231,"name":"result_manager.continuous_assessment.index","description":"View continuous assessment results","guard_name":"web","package_id":9,"created_at":"2025-10-28T16:31:22.000000Z","updated_at":"2025-10-28T16:31:22.000000Z","pivot":{"role_id":6,"permission_id":231}},{"id":233,"name":"school_activities.school_manager.class_register.view_ca","description":"View continuous assessment results","guard_name":"web","package_id":7,"created_at":"2025-11-07T16:39:48.000000Z","updated_at":"2025-11-07T16:39:48.000000Z","pivot":{"role_id":6,"permission_id":233}},{"id":234,"name":"school_activities.school_manager.class_register.upload_passport","description":"Upload learner passport image","guard_name":"web","package_id":7,"created_at":"2025-11-07T16:39:48.000000Z","updated_at":"2025-11-07T16:39:48.000000Z","pivot":{"role_id":14,"permission_id":234}},{"id":235,"name":"result_manager.set_up.edit_school_pass_mark","description":"Edit school pass mark","guard_name":"web","package_id":9,"created_at":"2025-11-07T16:40:07.000000Z","updated_at":"2025-11-07T16:40:07.000000Z","pivot":{"role_id":14,"permission_id":235}},{"id":236,"name":"result_manager.score_upload.purge_scores","description":"Purge/reset scores to 0","guard_name":"web","package_id":9,"created_at":"2025-11-07T16:40:07.000000Z","updated_at":"2025-11-07T16:40:07.000000Z","pivot":{"role_id":6,"permission_id":236}},{"id":237,"name":"result_manager.report_sheet.index","description":"View Report Sheet","guard_name":"web","package_id":9,"created_at":"2025-11-07T16:40:07.000000Z","updated_at":"2025-11-07T16:40:07.000000Z","pivot":{"role_id":14,"permission_id":237}},{"id":257,"name":"digital_class.lesson_note.filter.teacher","description":"View Teacher Filter","guard_name":"web","package_id":8,"created_at":"2025-11-10T18:05:21.000000Z","updated_at":"2025-11-10T18:05:21.000000Z","pivot":{"role_id":14,"permission_id":257}},{"id":258,"name":"digital_class.lesson_note.filter.programme","description":"View Programme Filter","guard_name":"web","package_id":8,"created_at":"2025-11-10T18:05:21.000000Z","updated_at":"2025-11-10T18:05:21.000000Z","pivot":{"role_id":14,"permission_id":258}},{"id":259,"name":"digital_class.lesson_note.filter.class","description":"View Class Filter","guard_name":"web","package_id":8,"created_at":"2025-11-10T18:05:21.000000Z","updated_at":"2025-11-10T18:05:21.000000Z","pivot":{"role_id":14,"permission_id":259}},{"id":260,"name":"digital_class.lesson_note.filter.subject","description":"View Subject Filter","guard_name":"web","package_id":8,"created_at":"2025-11-10T18:05:21.000000Z","updated_at":"2025-11-10T18:05:21.000000Z","pivot":{"role_id":14,"permission_id":260}},{"id":261,"name":"digital_class.lesson_note.fetch","description":"Fetch Lesson Notes Data","guard_name":"web","package_id":8,"created_at":"2025-11-10T18:05:21.000000Z","updated_at":"2025-11-10T18:05:21.000000Z","pivot":{"role_id":6,"permission_id":261}},{"id":262,"name":"school_activities.school_manager.school_curriculum.update","description":"update school class curriculum","guard_name":"web","package_id":7,"created_at":"2025-11-26T14:59:32.000000Z","updated_at":"2025-11-26T14:59:32.000000Z","pivot":{"role_id":6,"permission_id":262}},{"id":264,"name":"school_activities.class_manager.class_register.import_single_learner","description":"Import single learner","guard_name":"web","package_id":7,"created_at":"2025-11-26T14:59:32.000000Z","updated_at":"2025-11-26T14:59:32.000000Z","pivot":{"role_id":6,"permission_id":264}},{"id":265,"name":"digital_class.lesson_note.lesson_note_approval.index","description":"View Lesson Note Approval Page","guard_name":"web","package_id":8,"created_at":"2025-11-27T14:43:34.000000Z","updated_at":"2025-11-27T14:43:34.000000Z","pivot":{"role_id":14,"permission_id":265}},{"id":266,"name":"digital_class.lesson_note.filter.arm","description":"View Class Filter","guard_name":"web","package_id":8,"created_at":"2025-11-27T14:43:34.000000Z","updated_at":"2025-11-27T14:43:34.000000Z","pivot":{"role_id":14,"permission_id":266}},{"id":267,"name":"core.school_approval.view_certificate","description":"view school onboarding certificate","guard_name":"web","package_id":3,"created_at":"2025-11-28T16:16:35.000000Z","updated_at":"2025-11-28T16:16:35.000000Z","pivot":{"role_id":6,"permission_id":267}},{"id":270,"name":"school_activities.school_manager.class_register.change_arm","description":"Change learner arm","guard_name":"web","package_id":7,"created_at":"2025-12-01T14:33:39.000000Z","updated_at":"2025-12-01T14:33:39.000000Z","pivot":{"role_id":14,"permission_id":270}},{"id":271,"name":"result_manager.result_sheet.spa_approve_broadsheet","description":"Spa approve broadsheet","guard_name":"web","package_id":9,"created_at":"2025-12-01T15:08:07.000000Z","updated_at":"2025-12-01T15:08:07.000000Z","pivot":{"role_id":6,"permission_id":271}},{"id":272,"name":"result_manager.result_sheet.spa_disapprove_broadsheet","description":"Spa disapprove broadsheet","guard_name":"web","package_id":9,"created_at":"2025-12-01T15:08:07.000000Z","updated_at":"2025-12-01T15:08:07.000000Z","pivot":{"role_id":6,"permission_id":272}},{"id":273,"name":"result_manager.result_sheet.hos_approve_broadsheet","description":"Hos approve broadsheet","guard_name":"web","package_id":9,"created_at":"2025-12-01T15:08:07.000000Z","updated_at":"2025-12-01T15:08:07.000000Z","pivot":{"role_id":14,"permission_id":273}},{"id":275,"name":"result_manager.result_sheet.generate_comment","description":"Generate result comments","guard_name":"web","package_id":9,"created_at":"2025-12-01T15:08:07.000000Z","updated_at":"2025-12-01T15:08:07.000000Z","pivot":{"role_id":14,"permission_id":275}},{"id":277,"name":"
+                    school_activities.school_manager.class_register.view_result","description":"View results","guard_name":"web","package_id":7,"created_at":"2025-12-10T16:57:36.000000Z","updated_at":"2025-12-10T16:57:36.000000Z","pivot":{"role_id":14,"permission_id":277}},{"id":278,"name":"school_activities.school_manager.school_appointment.remove_spa","description":"Remove SPA","guard_name":"web","package_id":7,"created_at":"2025-12-12T11:20:42.000000Z","updated_at":"2025-12-12T11:20:42.000000Z","pivot":{"role_id":14,"permission_id":278}},{"id":279,"name":"school_activities.school_manager.school_appointment.remove_class_teacher","description":"Remove Of Class Teacher","guard_name":"web","package_id":7,"created_at":"2025-12-12T11:20:42.000000Z","updated_at":"2025-12-12T11:20:42.000000Z","pivot":{"role_id":14,"permission_id":279}},{"id":280,"name":"school_activities.school_manager.school_appointment.remove_form_teacher","description":"Remove of Form Teacher","guard_name":"web","package_id":7,"created_at":"2025-12-12T11:20:42.000000Z","updated_at":"2025-12-12T11:20:42.000000Z","pivot":{"role_id":14,"permission_id":280}},{"id":281,"name":"school_activities.school_manager.school_appointment.remove_subject_teacher","description":"School appointment and Remove of subject teacher","guard_name":"web","package_id":7,"created_at":"2025-12-12T11:20:42.000000Z","updated_at":"2025-12-12T11:20:42.000000Z","pivot":{"role_id":6,"permission_id":281}},{"id":287,"name":"core.hr_manager.teacher_posting.view_posting_letter","description":"View Posting/Appointment Letter","guard_name":"web","package_id":4,"created_at":"2026-01-07T13:17:11.000000Z","updated_at":"2026-01-07T13:17:11.000000Z","pivot":{"role_id":7,"permission_id":287}},{"id":314,"name":"bece.application.index","description":"BECE Application Management","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":314}},{"id":315,"name":"bece.application.downloadTemplate","description":"Download CAS Template","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":315}},{"id":316,"name":"bece.application.downloadAttendanceTemplate","description":"Download Attendance Template","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":316}},{"id":317,"name":"bece.application.uploadTemplate","description":"Upload CAS Template","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":317}},{"id":318,"name":"bece.application.import","description":"Import Learners for BECE","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":318}},{"id":319,"name":"bece.application.upload_passport","description":"Upload passport for BECE learners","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":319}},{"id":320,"name":"bece.application.clearResult","description":"Clear Result Uploaded for BECE learners","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":320}},{"id":321,"name":"bece.application.remove","description":"Remove a Learner From List of BECE learners","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":321}},{"id":322,"name":"bece.application.updateLearnerResults","description":"Edit Bece learner Result","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":322}},{"id":323,"name":"bece.application.payPlatformFee","description":"Pay Platform Fee","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":323}},{"id":324,"name":"bece.application.payBeceFee","description":"Pay Bece Fee","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":324}},{"id":325,"name":"bece.mapping.index","description":"BECE Script Mapping","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":325}},{"id":328,"name":"bece.mapping.teacher_save","description":"Save Teacher Mapping","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":328}},{"id":329,"name":"bece.results.broadsheet","description":"BECE Result Management","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":329}},{"id":330,"name":"bece.results.update-student-bece-remark","description":"Generate BECE Remark","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":330}},{"id":331,"name":"bece.script_marking.index","description":"BECE Script Marking","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":331}},{"id":332,"name":"bece.script_marking.save_score","description":"Save BECE Exam Score","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":332}},{"id":333,"name":"bece.script_marking.delete_score","description":"Delete BECE Exam Score","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":333}},
+                    {"id":334,"name":"bece.script_marking.download_template","description":"Download BECE Script Marking Template","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":334}},{"id":335,"name":"bece.script_marking.upload_scores","description":"Upload BECE Exam Scores in Bulk","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":14,"permission_id":335}},{"id":336,"name":"bece.report.index","description":"BECE Report","guard_name":"web","package_id":12,"created_at":"2026-02-13T10:51:57.000000Z","updated_at":"2026-02-13T10:51:57.000000Z","pivot":{"role_id":6,"permission_id":336}},{"id":337,"name":"bece.results.update_student_bece_remark","description":"Generate BECE Remark","guard_name":"web","package_id":12,"created_at":"2026-02-13T15:59:57.000000Z","updated_at":"2026-02-13T15:59:57.000000Z","pivot":{"role_id":14,"permission_id":337}},{"id":338,"name":"core.payment_history.index","description":"Payment History Index Page","guard_name":"web","package_id":5,"created_at":"2026-02-26T10:50:58.000000Z","updated_at":"2026-02-26T10:50:58.000000Z","pivot":{"role_id":14,"permission_id":338}}],"roles":["user","school_admin","teacher","school_head"],"current_ministry":{"id":1,"ministry_image":"https://diper.ogunstate.gov.ng/storage/avatars/ministry/1683d2e42478a6.png","ministry_name":"Ogun State Ministry of Education, Science and Technology","ministry_short_name":"OGMOEST","ministry_email":"education@ogunstate.gov.ng","ministry_phone":"08012345678","ministry_address":"Governor&apos;s Office,  Oke-Mosan, Abeokuta","state_id":27,"ministry_code_format":"[:lga][:category][:schooltype][:schlNum_4]","ministry_lin_code_format":"[:session][:schoolcode][:stdNum_4]","status":"active","created_at":"2025-05-30T16:03:15.000000Z","updated_at":"2025-10-16T15:48:04.000000Z","curriculum_inheritance":"active_curriculum"},"school":{"id":10822,"city_type_id":1,"school_name":"VICTORY KINGS AND QUEENS COMPREHENSIVE COLLEGE, ILARO, YEWA","school_email":"chiefatinsolaamore222@gmail.com","school_phone":"07066100662","school_logo":"https://edutams.tasued.edu.ng/images/tams.jpeg","school_stamp":null,"school_code":"E24024","prev_school_code":"E24024","school_type":"combined","school_owner_id":null,"category_id":1,"lga_id":568,"state_zone_id":null,"status":"approved","govt_status":"approved","approved_date":"2025-09-08","school_address":null,"geolocation":{"lat":"0030134.4","lng":"0654417"},"options":{"division_ids":[2,3]},"division_id":null,"created_at":"2021-10-22T00:00:00.000000Z","updated_at":"2025-09-08T16:00:08.000000Z","first_image":null,"second_image":null,"third_image":null,"state_division_id":null,"teachers_count":12,"agency":null},"teacher_classes":[],"teacher_subjects":[],"teacher_forms":[],"student_division_id":""},"active_session":{"id":2,"session_id":1,"term_id":2,"ministry_id":1,"order":2,"status":"active","created_at":"2025-06-18T14:48:33.000000Z","updated_at":"2026-02-05T11:16:47.000000Z","school_session":{"id":1,"session_name":"2025/2026","order":1,"status":"active","created_at":"2025-06-18T14:48:33.000000Z","updated_at":"2025-06-18T14:48:33.000000Z"},"term":{"id":2,"term_name":"Second Term","order":2,"number_of_weeks":13,"status":"active","created_at":"2025-06-16T13:08:10.000000Z","updated_at":"2025-06-16T13:08:10.000000Z"}},"active_week":{"id":34,"term_week_id":21,"session_term_id":2,"start_date":"2026-02-23","end_date":"2026-02-27","status":"active","created_at":"2026-02-05T17:45:08.000000Z","updated_at":"2026-02-05T17:45:08.000000Z","term_week":{"id":21,"term_id":2,"week_name":"Week 8","created_at":"2025-06-16T13:08:10.000000Z","updated_at":"2025-06-16T13:08:10.000000Z"},"session_term":{"id":2,"session_id":1,"term_id":2,"ministry_id":1,"order":2,"status":"active","created_at":"2025-06-18T14:48:33.000000Z","updated_at":"2026-02-05T11:16:47.000000Z","school_session":{"id":1,"session_name":"2025/2026","order":1,"status":"active","created_at":"2025-06-18T14:48:33.000000Z","updated_at":"2025-06-18T14:48:33.000000Z"},"term":{"id":2,"term_name":"Second Term","order":2,"number_of_weeks":13,"status":"active","created_at":"2025-06-16T13:08:10.000000Z","updated_at":"2025-06-16T13:08:10.000000Z"}}},"luceo":{"is_luceo":null,"is_edutams":null},"school":{"id":10822,"school_name":"VICTORY KINGS AND QUEENS COMPREHENSIVE COLLEGE, ILARO, YEWA","school_code":"E24024","school_head":"Ezekiel AMORE"}},"url":"/education-services/exam-clearance/manage-clearance/clearance-lists?selected_students_for_print=1437%2C1452%2C1453%2C1442%2C1441%2C1443%2C1449%2C1448%2C1455%2C1456%2C1457%2C1458%2C1459%2C1460%2C1461%2C1462%2C1463%2C1464%2C1465%2C1466%2C1467%2C1468%2C1469%2C1470%2C1471%2C1472%2C1473%2C1474%2C1475%2C1476%2C1477%2C1478%2C1479%2C1480%2C1481%2C1482%2C1483%2C1484%2C1485%2C1486%2C1487%2C1447%2C1488%2C1489%2C1490%2C1491%2C1492%2C1493%2C1494%2C1495%2C1496%2C1497%2C1498%2C1499%2C1500%2C1501%2C1502%2C1503%2C1504%2C1439%2C1505%2C1506%2C1507%2C1508%2C1509%2C1454%2C1445%2C1440%2C1438%2C1444%2C1436%2C1446","version":"a1071170120c4a6bdcffe49ed4edf490","encryptHistory":false,"clearHistory":false}'
+    >
 
-    <div class="card">
-      <div id="watermark" class="watermark">DIPER</div>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="header-content">
-              <div class="text-center">
-                <img
-                  src="{{ url_for('static', path='image.png') }}"
-                  alt=""
-                  style="height: 100px; width: 100px"
-                />
-              </div>
-              <h3 class="text-center">
-                MINISTRY OF EDUCATION, SCIENCE &amp; TECHNOLOGY
-              </h3>
-              <p class="text-center">
-                DEPARTMENT OF PLANNING, RESEARCH AND STATISTICS
-              </p>
-              <br />
-              <p class="text-left">
-                SCHOOL NAME: <strong>{{ school_name }}</strong>
-              </p>
-              <p class="text-left">
-                SCHOOL CODE: <strong>{{ school_code }}</strong>
-              </p>
-              <p class="text-left">
-                NAME OF PRINCIPAL: <strong>{{ principal }}</strong>
-              </p>
-              <br />
+    <div class="p-3 d-print-none">
+      <a href="#" id="printCertBtn" target="_blank" class="btn btn-primary">
+        <i class="fa fa-print mr-1"></i> <span>Print Certificate</span>
+      </a>
+      <button class="btn btn-secondary ml-2" onclick="history.back()">
+        Go Back
+      </button>
+
+      <button class="btn btn-info ml-2" onclick="window.print()">
+        <i class="fa fa-print"></i>
+        Print Registration List
+      </button>
+
+
+    </div>
+
+
+      
+      <div class="card">
+        <div id="watermark" class="watermark">DIPER</div>
+        <div class="container-fluid velmld-parent">
+          <div
+            data-v-27234dc7=""
+            class="velmld-overlay"
+            style="background-color: rgba(255, 255, 255, 0.9); display: none"
+          >
+            <div data-v-27234dc7="" class="velmld-spinner">
+              <svg
+                data-v-27234dc7=""
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                width="40px"
+                height="40px"
+                viewBox="0 0 24 30"
+                xml:space="preserve"
+              >
+                <rect x="0" y="13" width="4" height="5" fill="var(--primary)">
+                  <animate
+                    attributeName="height"
+                    attributeType="XML"
+                    values="5;21;5"
+                    begin="0s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                  <animate
+                    attributeName="y"
+                    attributeType="XML"
+                    values="13; 5; 13"
+                    begin="0s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                </rect>
+                <rect x="10" y="13" width="4" height="5" fill="var(--primary)">
+                  <animate
+                    attributeName="height"
+                    attributeType="XML"
+                    values="5;21;5"
+                    begin="0.15s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                  <animate
+                    attributeName="y"
+                    attributeType="XML"
+                    values="13; 5; 13"
+                    begin="0.15s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                </rect>
+                <rect x="20" y="13" width="4" height="5" fill="var(--primary)">
+                  <animate
+                    attributeName="height"
+                    attributeType="XML"
+                    values="5;21;5"
+                    begin="0.3s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                  <animate
+                    attributeName="y"
+                    attributeType="XML"
+                    values="13; 5; 13"
+                    begin="0.3s"
+                    dur="0.6s"
+                    repeatCount="indefinite"
+                  ></animate>
+                </rect>
+              </svg>
+              <!---->
             </div>
           </div>
-          <div class="col-md-12">
-            <h4 class="text-center">
-              2025/2026 WASSCE CLEARANCE FOR SCHOOL CANDIDATES
-            </h4>
-            <table class="table table-striped table-bordered">
-              <thead class="thead">
-                <tr>
-                  <th>#</th>
-                  <th>Passport</th>
-                  <th>LEARNERS ID (LIN)</th>
-                  <th>Last Name</th>
-                  <th>First Name</th>
-                  <th>Other Name</th>
-                  <th>Sex</th>
-                  <th>2025/2026</th>
-                  <th>2024/2025</th>
-                  <th>2023/2024</th>
-                  <th>Remark</th>
-                </tr>
-              </thead>
+          <!---->
+          <!---->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="header-content">
+                <div class="text-center">
+                  <img
+                    src="{{ url_for('static', path='image.png') }}"
+                    alt="Ogun State Logo"
+                    class="state-logo"
+                    style="height: 100px; width: 100px"
+                  />
+                </div>
+                <h3 class="text-center ministry-text">
+                  MINISTRY OF EDUCATION, SCIENCE &amp; TECHNOLOGY
+                </h3>
+                <p class="text-center department-text">
+                  DEPARTMENT OF PLANNING, RESEARCH AND STATISTICS
+                </p>
+                <br />
+                <p class="text-left school-name">
+                  SCHOOL NAME:
+                  <strong
+                    >{{ school_name }}</strong
+                  >
+                </p>
+                <p class="text-left school-code">
+                  SCHOOL CODE: <strong>{{ school_code }}</strong>
+                </p>
+                <p class="text-left principal-name">
+                  NAME OF PRINCIPAL:
+                  <strong>{{ principal }}</strong>
+                </p>
+                <br />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h4 class="text-center table-title">
+                2025/2026 WASSCE SCHOOL CANDIDATES' CLEARANCE LIST
+              </h4>
+              
+              <!-- <div class="d-flex justify-content-center mb-4 wassce-summary">
+                <div
+                  class="summary-item px-3 py-2 bg-light border rounded mx-2"
+                >
+                  <span class="text-muted small text-uppercase font-weight-bold"
+                    >Total Students</span
+                  >
+                  <div class="h5 mb-0 text-center font-weight-bold">72</div>
+                </div>
+                <div
+                  class="summary-item px-3 py-2 bg-light border rounded mx-2 border-success"
+                >
+                  <span
+                    class="text-success small text-uppercase font-weight-bold"
+                    >Recommended</span
+                  >
+                  <div
+                    class="h5 mb-0 text-center font-weight-bold text-success"
+                  >
+                    14
+                  </div>
+                </div>
+                <div
+                  class="summary-item px-3 py-2 bg-light border rounded mx-2 border-danger"
+                >
+                  <span
+                    class="text-danger small text-uppercase font-weight-bold"
+                    >Not Recommended</span
+                  >
+                  <div class="h5 mb-0 text-center font-weight-bold text-danger">
+                    58
+                  </div>
+                </div>
+              </div> -->
 
-              <tbody class="tbody">
-                {% for row in rows %}
-                <tr>
-                  <td>{{ loop.index }}</td>
-                  <td>
-                    <!-- <img src="https://ik.imagekit.io/edx82gwzy/istockphoto-1332100919-612x612.jpg?updatedAt=1710424155848" alt="Resource Not Available" width="40" height="40"></td> -->
-                    <img src="{{ row.passport }}" width="40" height="40" />
-                  </td>
-                  <td>{{ row.lin }}</td>
-                  <td>{{ row.lastname }}</td>
-                  <td>{{ row.firstname }}</td>
-                  <td>{{ row.othername }}</td>
-                  <td>{{ row.sex }}</td>
-                  <td style="text-align: center">{{ row.year_2026 }}</td>
-                  <td style="text-align: center">{{ row.year_2025 }}</td>
-                  <td style="text-align: center">{{ row.year_2024 }}</td>
-                  <td style="text-align: center">{{ row.remark.title() }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+              {% set total = rows | length %}
+              {% set recommended = rows | selectattr("remark", "equalto", "recommended") | list | length %}
+              {% set not_recommended = rows | selectattr("remark", "equalto", "not recommended") | list | length %}
+
+              <div class="d-flex justify-content-center mb-4 wassce-summary">
+                <div class="summary-item px-3 py-2 bg-light border rounded mx-2">
+                  <span class="text-muted small text-uppercase font-weight-bold">
+                    Total Students
+                  </span>
+                  <div class="h5 mb-0 text-center font-weight-bold">
+                    {{ total }}
+                  </div>
+                </div>
+
+                <div class="summary-item px-3 py-2 bg-light border rounded mx-2 border-success">
+                  <span class="text-success small text-uppercase font-weight-bold">
+                    Recommended
+                  </span>
+                  <div class="h5 mb-0 text-center font-weight-bold text-success">
+                    {{ recommended }}
+                  </div>
+                </div>
+
+                <div class="summary-item px-3 py-2 bg-light border rounded mx-2 border-danger">
+                  <span class="text-danger small text-uppercase font-weight-bold">
+                    Not Recommended
+                  </span>
+                  <div class="h5 mb-0 text-center font-weight-bold text-danger">
+                    {{ not_recommended }}
+                  </div>
+                </div>
+              </div>
+
+              <table
+                class="table table-striped table-bordered table-responsive-sm"
+              >
+                <thead class="thead">
+                  <tr>
+                    <th>#</th>
+                    <th>LEARNERS ID (LIN)</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Other Name</th>
+                    <th>Sex</th>
+                    <th>2025/2026</th>
+                    <th>2024/2025</th>
+                    <th>2023/2024</th>
+                    <th>Remark</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody">
+                  {% for row in rows %}
+                  <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                      <a
+                        href="javascript:void(0)"
+                        class="text-primary font-weight-bold"
+                        style="text-decoration: underline"
+                      >
+                        {{ row.lin }}
+                      </a>
+                    </td>
+                    <td>{{ row.lastname }}</td>
+                    <td>{{ row.firstname }}</td>
+                    <td>{{ row.othername }}</td>
+                    <td class="text-capitalize">{{ row.sex }}</td>
+                    <td style="text-align: center">
+                      {{ row.year_2026 }}
+                      <br />
+                      <a href="/school/{{ school_code }}"
+                        >({{ school_code }})</a
+                      >
+                    </td>
+
+                    <td style="text-align: center">
+                      {{ row.year_2025 }}
+                      <br />
+                      <a href="/school/{{ school_code }}"
+                        >({{ school_code }})</a
+                      >
+                    </td>
+
+                    <td style="text-align: center">
+                      {{ row.year_2024 }}
+                      <br />
+                      <a href="/school/{{ school_code }}"
+                        >({{ school_code }})</a
+                      >
+                    </td>
+                    <td style="text-align: center">{{ row.remark.title() }}</td>
+                  </tr>
+                  {% endfor %}
+                  </tr>
+
+                  <div
+                    id="edutams-support-chat"
+                    data-payload="customer_id=E24024&amp;email=chiefatinsolaamore222%40gmail.com&amp;fname=Ezekiel&amp;hash_type=sha256&amp;lname=AMORE&amp;mname=Atinsola&amp;support_code=EDSUP_67876060&amp;timestamp=1772134807&amp;user_id=661d7e19-e615-44a4-b9b6-b23498081ca1&amp;signature=b6a078beff426294f9f9d4d7ea93148525c891d11d7dda0b6082b041f11cdcb9"
+                    data-origin="https://support.edutams.net"
+                    data-env="production"
+                  >
+                    <button class="chat-icon-btn">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                        fill="#563784"
+                      >
+                        <path
+                          d="M12 1C7.03 1 3 5.03 3 10v7c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-2c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9zM7 15v2H5v-2h2zm12 2h-2v-2h2v2zm-7 2c-1.66 0-3 1.34-3 3h6c0-1.66-1.34-3-3-3z"
+                        ></path>
+                      </svg>
+                    </button>
+                    <div class="options-modal">
+                      <div class="options-header">
+                        <h3>How can we help?</h3>
+                        <button class="close-btn">×</button>
+                      </div>
+                      <div class="option-buttons">
+                        <button class="option-btn" data-action="chat">
+                          💬 Chat with Human
+                        </button>
+                        <button class="option-btn" data-action="complaints">
+                          📝 Submit Complaints
+                        </button>
+                      </div>
+                    </div>
+                    <div class="chat-window">
+                      <div class="chat-iframe-container">
+                        <iframe
+                          id="chat-iframe"
+                          src="https://support.edutams.net/support/chat/client_entry?payload=customer_id%3DE24024%26email%3Dchiefatinsolaamore222%2540gmail.com%26fname%3DEzekiel%26hash_type%3Dsha256%26lname%3DAMORE%26mname%3DAtinsola%26support_code%3DEDSUP_67876060%26timestamp%3D1772134807%26user_id%3D661d7e19-e615-44a4-b9b6-b23498081ca1%26signature%3Db6a078beff426294f9f9d4d7ea93148525c891d11d7dda0b6082b041f11cdcb9"
+                          frameborder="0"
+                        ></iframe>
+                      </div>
+                    </div>
+                  </div>
+
+                  <script
+                    src="https://support.edutams.net/inline_script/edu_support.js"
+                    async=""
+                  ></script>
+                </tbody>
+
+
+
+
+
+
+
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script>
+  function openCertificateAndVerify(recordId) {
+      // Open the certificate print page in a new tab
+      window.open(`/print/certificate/${recordId}`, '_blank');
+
+      // Open the verification QR page in another new tab
+      window.open(`/verify/${recordId}`, '_blank');
+  }
+  </script>
 </html>
