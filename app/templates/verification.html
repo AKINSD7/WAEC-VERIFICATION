@@ -177,6 +177,29 @@
       .ml-2 {
         margin-left: 10px;
       }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        vertical-align: top;
+      }
+    </style>
+    <style>
+      .school-table {
+        width: 100%;
+        table-layout: fixed; /* prevents auto stretching */
+        border-collapse: collapse;
+      }
+
+      .school-table td:first-child {
+        width: 100px; /* your target ~101px */
+        white-space: nowrap; /* keeps labels on one line */
+        padding-right: 8px;
+      }
+
+      .school-table td:last-child {
+        width: auto;
+      }
     </style>
   </head>
 
@@ -209,13 +232,11 @@
         <div class="all-P">
           <p>This is to certify that</p>
 
-          <table style="margin: 15px 0 30px; font-size: 16px">
+          <!-- <table style="margin: 15px 0 30px; font-size: 16px">
             <tbody>
               <tr>
                 <td><b>Name of School:</b></td>
-                <td>
-                  {{ school_name }}
-                </td>
+                <td>{{ school_name }}</td>
               </tr>
               <tr>
                 <td><b>LGA:</b></td>
@@ -230,7 +251,40 @@
                 <td>{{ school_code }}</td>
               </tr>
             </tbody>
+          </table> -->
+
+          <table
+            class="school-table"
+            style="margin: 15px 0 30px; font-size: 16px"
+          >
+            <tbody>
+              <tr>
+                <td style="padding-right: 30px">
+                  <b>Name of School:&nbsp;&nbsp;&nbsp;</b>
+                </td>
+                <td>{{ school_name }}</td>
+              </tr>
+              <tr>
+                <td style="padding-right: 30px">
+                  <b>LGA:&nbsp;&nbsp;&nbsp;</b>
+                </td>
+                <td>{{ principal }}</td>
+              </tr>
+              <tr>
+                <td style="padding-right: 30px">
+                  <b>School Address:&nbsp;&nbsp;&nbsp;</b>
+                </td>
+                <td>{{ school_address }}</td>
+              </tr>
+              <tr>
+                <td style="padding-right: 30px">
+                  <b>School Code:&nbsp;&nbsp;&nbsp;</b>
+                </td>
+                <td>{{ school_code }}</td>
+              </tr>
+            </tbody>
           </table>
+
           <p style="font-size: 16px; font-weight: 400">
             Has been cleared to present candidates for 2025/2026 WASSCE for
             internal Examination
